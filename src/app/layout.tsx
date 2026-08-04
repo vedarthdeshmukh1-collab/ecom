@@ -1,35 +1,49 @@
 import type { Metadata } from "next";
-import { Manrope, Syne } from "next/font/google";
+import { Outfit, Space_Grotesk } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
+import { WishlistProvider } from "@/lib/wishlist-context";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
+import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const body = Outfit({
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
-const syne = Syne({
-  variable: "--font-syne",
+const display = Space_Grotesk({
+  variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://soleva.example.com"),
   title: {
-    default: "FORMA — Objects made to hold space",
-    template: "%s · FORMA",
+    default: "SOLEVA — Performance Meets Everyday Style",
+    template: "%s · SOLEVA",
   },
   description:
-    "Contemporary furniture and objects for considered interiors. A portfolio demo storefront for case studies.",
+    "Premium footwear engineered for comfort, movement, and everyday performance. Shop running, training, basketball, and lifestyle sneakers.",
   openGraph: {
-    title: "FORMA — Objects made to hold space",
+    title: "SOLEVA — Performance Meets Everyday Style",
     description:
-      "Contemporary furniture and objects for considered interiors.",
+      "Premium footwear engineered for comfort, movement, and everyday performance.",
     type: "website",
+    siteName: "SOLEVA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "SOLEVA — Performance Meets Everyday Style",
+    description:
+      "Premium footwear engineered for comfort, movement, and everyday performance.",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -37,14 +51,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${syne.variable} h-full antialiased`}
+      className={`${body.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col texture-grain bg-paper text-ink">
+      <body className="min-h-full flex flex-col bg-paper text-ink-soft">
         <CartProvider>
-          <Header />
-          <main className="relative z-[2] flex-1">{children}</main>
-          <Footer />
-          <CartDrawer />
+          <WishlistProvider>
+            <Header />
+            <main className="relative z-[2] flex-1 pb-16 md:pb-0">{children}</main>
+            <Footer />
+            <CartDrawer />
+            <MobileNav />
+          </WishlistProvider>
         </CartProvider>
       </body>
     </html>

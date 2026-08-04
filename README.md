@@ -1,19 +1,22 @@
-# FORMA — Ecommerce Demo Store
+# SOLEVA — Premium Footwear Ecommerce
 
-A portfolio-ready ecommerce demo for case studies. **FORMA** is a fictional contemporary furniture & objects brand with a full browse → product → cart → checkout flow.
+**SOLEVA** — *Performance Meets Everyday Style.*
+
+A premium footwear ecommerce demo converted from the original storefront architecture. Browse sneakers, filter by sport and size, manage cart/wishlist, and walk through a demo checkout.
 
 ## Features
 
-- Branded home page with full-bleed hero and collections
-- Shop with category filters and sorting
-- Collection pages (Living, Light, Objects)
-- Product detail with color variants and add-to-cart
-- Persistent cart (drawer + page) via localStorage
-- Demo checkout (no real payments)
+- Home with hero, categories, new arrivals, bestsellers, sport shop, tech & reviews
+- Shop with sticky filters, grid/list toggle, sorting, load more
+- Collections: Men, Women, Running, Lifestyle, Limited
+- Product pages with size/color, wishlist, reviews, specs & schema
+- Predictive search, size guide, journal/blog
+- Persistent cart with free-shipping progress (₹3,000)
+- Demo checkout with coupons (try `SOLEVA10`)
 
 ## Stack
 
-- Next.js (App Router) · React · TypeScript · Tailwind CSS
+Next.js (App Router) · React · TypeScript · Tailwind CSS
 
 ## Getting started
 
@@ -24,13 +27,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-```bash
-npm run build
-npm start
-```
-
 ## Notes
 
-- Product imagery is from [Unsplash](https://unsplash.com) for presentation quality.
+- Imagery from [Unsplash](https://unsplash.com) for presentation quality.
 - Checkout is intentionally fake — labeled throughout the UI.
-- Built as a demonstration storefront for portfolios and case studies.
+- Prices display in INR for the demo storefront.

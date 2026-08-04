@@ -1,6 +1,24 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { formatPrice, type Product } from "@/data/products";
+import { useState } from "react";
+import {
+  discountPercent,
+  formatPrice,
+  type Product,
+} from "@/data/products";
+import { useCart } from "@/lib/cart-context";
+import { useWishlist } from "@/lib/wishlist-context";
+
+function Stars({ rating }: { rating: number }) {
+  return (
+    <span className="text-xs text-accent" aria-label={`${rating} out of 5`}>
+      {"★".repeat(Math.round(rating))}
+      <span className="text-stone">{"★".repeat(5 - Math.round(rating))}</span>
+    </span>
+  );
+}
 
 export function ProductCard({
   product,
@@ -9,44 +27,118 @@ export function ProductCard({
   product: Product;
   priority?: boolean;
 }) {
+  const { addItem, openCart } = useCart();
+  const { toggle, has } = useWishlist();
+  const [quickSize, setQuickSize] = useState<number | null>(null);
+  const wished = has(product.id);
+  const discount = discountPercent(product.price, product.compareAt);
+  const hoverSrc = product.images[1] ?? product.images[0];
+
   return (
-    <article className="group">
-      <Link href={`/product/${product.slug}`} className="block">
-        <div className="relative aspect-[4/5] overflow-hidden bg-stone">
+    <article className="group relative">
+      <div className="relative aspect-square overflow-hidden rounded-2xl bg-mist">
+        <Link href={`/product/${product.slug}`} className="block h-full">
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
             priority={priority}
-            className="object-cover transition duration-700 ease-out group-hover:scale-[1.04]"
+            className="object-cover transition duration-500 group-hover:opacity-0"
             sizes="(max-width: 768px) 50vw, 25vw"
           />
-          <div className="absolute left-3 top-3 flex gap-2">
-            {product.new && (
-              <span className="bg-paper/95 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-ink">
-                New
-              </span>
-            )}
-            {product.compareAt && (
-              <span className="bg-pine/90 px-2 py-1 text-[10px] uppercase tracking-[0.16em] text-mist">
-                Sale
-              </span>
-            )}
+          <Image
+            src={hoverSrc}
+            alt=""
+            fill
+            className="object-cover opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+            sizes="(max-width: 768px) 50vw, 25vw"
+            aria-hidden
+          />
+        </Link>
+
+        <div className="absolute left-3 top-3 flex flex-col gap-1.5">
+          {product.new && (
+            <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
+              New
+            </span>
+          )}
+          {discount && (
+            <span className="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
+              -{discount}%
+            </span>
+          )}
+        </div>
+
+        <button
+          type="button"
+          onClick={() => toggle(product.id)}
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-paper/95 text-sm shadow-sm transition hover:scale-105"
+          aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
+        >
+          {wished ? "♥" : "♡"}
+        </button>
+
+        <div className="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          <div className="rounded-2xl bg-paper/95 p-2 shadow-lg backdrop-blur">
+            <div className="mb-2 flex flex-wrap gap-1">
+              {product.sizes.slice(0, 6).map((size) => (
+                <button
+                  key={size}
+                  type="button"
+                  onClick={() => setQuickSize(size)}
+                  className={`min-w-8 rounded-full px-2 py-1 text-[11px] font-medium transition ${
+                    quickSize === size
+                      ? "bg-ink text-paper"
+                      : "bg-mist text-ink hover:bg-stone"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-2 gap-1.5">
+              <Link
+                href={`/product/${product.slug}`}
+                className="rounded-full border border-line py-2 text-center text-[11px] font-semibold"
+              >
+                Quick view
+              </Link>
+              <button
+                type="button"
+                className="rounded-full bg-accent py-2 text-[11px] font-semibold text-paper transition hover:bg-accent-deep"
+                onClick={() => {
+                  const size = quickSize ?? product.sizes[0];
+                  addItem(product, product.colors[0].name, size, 1);
+                  openCart();
+                }}
+              >
+                Add to cart
+              </button>
+            </div>
           </div>
         </div>
-        <div className="mt-3 flex items-start justify-between gap-3">
+      </div>
+
+      <Link href={`/product/${product.slug}`} className="mt-3 block">
+        <div className="flex items-start justify-between gap-2">
           <div>
-            <h3 className="font-display text-lg leading-tight tracking-tight md:text-xl">
+            <h3 className="font-display text-base font-semibold tracking-tight md:text-lg">
               {product.name}
             </h3>
-            <p className="mt-1 text-xs capitalize text-muted">
-              {product.category}
+            <p className="mt-0.5 text-xs text-muted">
+              {product.colors[0]?.name} · {product.category}
             </p>
+            <div className="mt-1 flex items-center gap-1.5">
+              <Stars rating={product.rating} />
+              <span className="text-[11px] text-muted">
+                ({product.reviewCount})
+              </span>
+            </div>
           </div>
           <div className="text-right text-sm">
-            <p>{formatPrice(product.price)}</p>
+            <p className="font-semibold">{formatPrice(product.price)}</p>
             {product.compareAt && (
-              <p className="text-muted line-through">
+              <p className="text-xs text-muted line-through">
                 {formatPrice(product.compareAt)}
               </p>
             )}

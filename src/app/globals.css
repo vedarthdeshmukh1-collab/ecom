@@ -1,20 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --ink: #141816;
-  --ink-soft: #2a302c;
-  --mist: #e8ebe7;
-  --paper: #f3f4f1;
-  --stone: #d5d9d4;
-  --pine: #2f4a3c;
-  --pine-deep: #1e3228;
-  --verdigris: #1a6b5c;
-  --verdigris-soft: #2a8a78;
-  --muted: #6b736c;
-  --line: rgba(20, 24, 22, 0.12);
-  --glow: rgba(26, 107, 92, 0.14);
+  --ink: #111111;
+  --ink-soft: #222222;
+  --mist: #f7f7f7;
+  --paper: #ffffff;
+  --stone: #f0f0f0;
+  --accent: #ff5a1f;
+  --accent-soft: #ff7a4a;
+  --accent-deep: #e04710;
+  --muted: #6b6b6b;
+  --line: #e8e8e8;
   --background: var(--paper);
-  --foreground: var(--ink);
+  --foreground: var(--ink-soft);
 }
 
 @theme inline {
@@ -25,14 +23,13 @@
   --color-mist: var(--mist);
   --color-paper: var(--paper);
   --color-stone: var(--stone);
-  --color-pine: var(--pine);
-  --color-pine-deep: var(--pine-deep);
-  --color-verdigris: var(--verdigris);
-  --color-verdigris-soft: var(--verdigris-soft);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-deep: var(--accent-deep);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --font-sans: var(--font-manrope);
-  --font-display: var(--font-syne);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
 }
 
 * {
@@ -46,39 +43,87 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-family: var(--font-body), system-ui, sans-serif;
   min-height: 100vh;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--verdigris) 35%, white);
+  background: color-mix(in srgb, var(--accent) 35%, white);
   color: var(--ink);
 }
 
 .font-display {
-  font-family: var(--font-syne), system-ui, sans-serif;
+  font-family: var(--font-display), system-ui, sans-serif;
 }
 
-.texture-grain {
-  position: relative;
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.85rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.texture-grain::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  opacity: 0.045;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  z-index: 1;
+.btn-primary:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--paper) 55%, transparent);
+  background: transparent;
+  color: var(--paper);
+  padding: 0.85rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: color-mix(in srgb, var(--paper) 12%, transparent);
+  transform: translateY(-1px);
+}
+
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: var(--paper);
+  padding: 0.85rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.btn-accent:hover {
+  background: var(--accent-deep);
+  transform: translateY(-1px);
 }
 
 .hero-wash {
   background:
-    radial-gradient(120% 80% at 70% 20%, rgba(26, 107, 92, 0.22), transparent 55%),
-    radial-gradient(90% 60% at 10% 90%, rgba(47, 74, 60, 0.35), transparent 50%),
-    linear-gradient(160deg, #1a2420 0%, #0f1412 48%, #1e3228 100%);
+    radial-gradient(100% 80% at 80% 10%, rgba(255, 90, 31, 0.28), transparent 50%),
+    linear-gradient(145deg, #0a0a0a 0%, #1a1a1a 55%, #111111 100%);
 }
 
 .animate-rise {
@@ -160,6 +205,21 @@ body {
   animation: overlay-in 0.25s ease both;
 }
 
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e6e6e6 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-rise,
   .animate-rise-delay-1,
@@ -168,7 +228,8 @@ body {
   .animate-fade,
   .animate-marquee,
   .cart-drawer,
-  .cart-overlay {
+  .cart-overlay,
+  .skeleton {
     animation: none;
   }
 }

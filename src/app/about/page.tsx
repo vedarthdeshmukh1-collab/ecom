@@ -5,79 +5,85 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "FORMA is a fictional contemporary furniture studio — a demo ecommerce storefront for portfolios and case studies.",
+    "SOLEVA is a premium footwear brand built on innovation, comfort, design, sustainability, and performance.",
 };
 
 export default function AboutPage() {
   return (
     <div>
-      <section className="relative min-h-[70vh] overflow-hidden bg-ink text-mist">
+      <section className="relative min-h-[70vh] overflow-hidden bg-ink text-paper">
         <Image
-          src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=2000&q=80"
-          alt="Architectural interior with soft daylight"
+          src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=2000&q=80"
+          alt="Athletes training in SOLEVA footwear"
           fill
           priority
-          className="object-cover opacity-50"
+          className="object-cover opacity-45"
           sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/80 via-ink/40 to-transparent" />
         <div className="relative z-10 mx-auto flex min-h-[70vh] max-w-7xl flex-col justify-end px-5 pb-14 pt-28 md:justify-center md:px-8 md:pb-20">
-          <p className="font-display text-5xl tracking-[0.18em] md:text-7xl">
-            FORMA
+          <p className="font-display text-5xl font-bold tracking-[0.14em] md:text-7xl">
+            SOLEVA
           </p>
-          <h1 className="mt-5 max-w-2xl font-display text-3xl leading-tight tracking-tight md:text-5xl">
-            A storefront built to look real — for portfolios and case studies
+          <h1 className="mt-5 max-w-2xl font-display text-3xl font-bold leading-tight tracking-tight md:text-5xl">
+            Performance Meets Everyday Style.
           </h1>
         </div>
       </section>
 
       <section className="mx-auto max-w-3xl px-5 py-20 md:px-8 md:py-28">
-        <p className="text-xs uppercase tracking-[0.2em] text-muted">
-          Project brief
+        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+          Our story
         </p>
-        <h2 className="mt-3 font-display text-3xl tracking-tight md:text-4xl">
-          Why this demo exists
+        <h2 className="mt-3 font-display text-3xl font-bold tracking-tight md:text-4xl">
+          Footwear for people who never really stop moving
         </h2>
         <div className="mt-8 space-y-5 text-base leading-relaxed text-muted md:text-lg">
           <p>
-            FORMA is a fictional contemporary furniture and objects brand. The
-            store demonstrates a complete ecommerce experience: branded home,
-            collection pages, product detail with variants, a persistent cart,
-            and a demo checkout — without processing real payments.
+            SOLEVA started with a simple brief: build shoes that feel as good on
+            a Tuesday commute as they do on a Saturday long run. We obsess over
+            foam compounds, knit structures, and outsole patterns until the
+            product disappears underfoot — and the day opens up.
           </p>
           <p>
-            Use it in case studies to show merchandising layout, product
-            storytelling, and interaction design. Every product is sample
-            content; imagery is sourced from Unsplash for presentation quality.
+            This storefront is a premium ecommerce demo for portfolios and case
+            studies, showcasing a full footwear shopping experience from browse
+            to checkout.
           </p>
         </div>
       </section>
 
-      <section className="bg-mist/70 py-20 md:py-28">
+      <section className="bg-mist py-20 md:py-28">
         <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2 className="font-display text-3xl tracking-tight md:text-4xl">
-            What you can walk through
+          <h2 className="font-display text-3xl font-bold tracking-tight md:text-4xl">
+            What we stand on
           </h2>
-          <ul className="mt-10 grid gap-8 md:grid-cols-3">
+          <ul className="mt-10 grid gap-8 md:grid-cols-3 lg:grid-cols-5">
             {[
               {
-                title: "Browse & filter",
-                body: "Shop by category, sort by price, and open collection stories for Living, Light, and Objects.",
+                title: "Innovation",
+                body: "Ultra Cushion Foam and adaptive knits refined through athlete feedback.",
               },
               {
-                title: "Configure & add",
-                body: "Pick colors and quantities on product pages. Cart state persists in local storage across reloads.",
+                title: "Comfort",
+                body: "Lasts and cushioning tuned for all-day wear, not just peak performance.",
               },
               {
-                title: "Demo checkout",
-                body: "Complete a mock order flow with contact, shipping, and payment fields — no charges, clear demo labeling.",
+                title: "Design",
+                body: "Clean silhouettes that move from training kit to street without apology.",
+              },
+              {
+                title: "Sustainability",
+                body: "Recycled yarns and responsible packaging where the tech allows.",
+              },
+              {
+                title: "Performance",
+                body: "Grip, lockdown, and energy return you can feel on the first stride.",
               },
             ].map((item) => (
               <li key={item.title}>
-                <h3 className="font-display text-2xl tracking-tight">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-muted md:text-base">
+                <h3 className="font-display text-xl font-bold">{item.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
                   {item.body}
                 </p>
               </li>
@@ -86,36 +92,45 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
-        <div className="grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
-          <div className="relative aspect-[4/5] overflow-hidden bg-stone">
-            <Image
-              src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1400&q=80"
-              alt="Living room vignette with lounge seating"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-          </div>
+      <section
+        id="shipping"
+        className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-20"
+      >
+        <div className="grid gap-10 md:grid-cols-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-muted">
-              Stack
+            <h2 className="font-display text-2xl font-bold">Shipping</h2>
+            <p className="mt-3 text-sm text-muted">
+              Free shipping on orders over ₹3,000. Standard delivery in 3–6
+              business days across India (demo timing).
             </p>
-            <h2 className="mt-3 font-display text-3xl tracking-tight md:text-4xl">
-              Built with Next.js
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-muted">
-              App Router, TypeScript, Tailwind CSS, and next/image. Cart state
-              lives in React context with localStorage hydration — suitable for
-              demos and easy to extend toward a real commerce backend.
-            </p>
-            <Link
-              href="/shop"
-              className="mt-8 inline-flex bg-pine px-6 py-3.5 text-sm text-mist transition hover:bg-pine-deep"
-            >
-              Explore the shop
-            </Link>
           </div>
+          <div id="returns">
+            <h2 className="font-display text-2xl font-bold">Returns</h2>
+            <p className="mt-3 text-sm text-muted">
+              14-day returns on unworn pairs with original packaging. Size
+              exchanges welcome.
+            </p>
+          </div>
+          <div id="contact">
+            <h2 className="font-display text-2xl font-bold">Contact</h2>
+            <p className="mt-3 text-sm text-muted">
+              hello@soleva.example · Mon–Sat, 10am–7pm IST
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="careers" className="border-t border-line bg-paper py-16">
+        <div className="mx-auto max-w-7xl px-5 md:px-8">
+          <h2 className="font-display text-2xl font-bold">Careers</h2>
+          <p className="mt-3 max-w-xl text-sm text-muted">
+            We’re always looking for designers, foam chemists, and retail minds.
+            Send a note via Contact — this is a demo brand, but the invitation
+            stands in spirit.
+          </p>
+          <Link href="/shop" className="btn-accent mt-8 inline-flex">
+            Explore the shop
+          </Link>
         </div>
       </section>
     </div>

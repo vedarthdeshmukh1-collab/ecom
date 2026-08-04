@@ -2,83 +2,110 @@ import Link from "next/link";
 
 export function Footer() {
   return (
-    <footer className="relative z-[2] border-t border-line bg-ink text-mist">
+    <footer className="relative z-[2] border-t border-line bg-ink text-paper">
       <div className="mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-12 md:px-8 md:py-20">
-        <div className="md:col-span-5">
-          <p className="font-display text-3xl tracking-[0.16em]">FORMA</p>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-mist/70">
-            Contemporary furniture and objects for rooms that prefer quiet
-            confidence over noise. A demo storefront built for portfolio and
-            case-study work.
+        <div className="md:col-span-4">
+          <p className="font-display text-3xl font-bold tracking-[0.14em]">
+            SOLEVA
+          </p>
+          <p className="mt-2 text-sm font-medium text-accent">
+            Performance Meets Everyday Style.
+          </p>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-paper/65">
+            Premium footwear engineered for comfort, movement, and everyday
+            performance — from road to court to city streets.
           </p>
         </div>
 
         <div className="md:col-span-2">
-          <p className="text-xs uppercase tracking-[0.2em] text-mist/50">
-            Shop
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">
+            Collections
           </p>
-          <ul className="mt-4 space-y-2 text-sm text-mist/80">
+          <ul className="mt-4 space-y-2 text-sm text-paper/75">
             <li>
-              <Link href="/shop" className="hover:text-mist">
-                All products
+              <Link href="/collections/men" className="hover:text-paper">
+                Men
               </Link>
             </li>
             <li>
-              <Link href="/collections/living" className="hover:text-mist">
-                Living
+              <Link href="/collections/women" className="hover:text-paper">
+                Women
               </Link>
             </li>
             <li>
-              <Link href="/collections/light" className="hover:text-mist">
-                Light
+              <Link href="/shop?sport=running" className="hover:text-paper">
+                Sports
               </Link>
             </li>
             <li>
-              <Link href="/collections/objects" className="hover:text-mist">
-                Objects
-              </Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className="md:col-span-2">
-          <p className="text-xs uppercase tracking-[0.2em] text-mist/50">
-            Studio
-          </p>
-          <ul className="mt-4 space-y-2 text-sm text-mist/80">
-            <li>
-              <Link href="/about" className="hover:text-mist">
-                About
-              </Link>
-            </li>
-            <li>
-              <Link href="/cart" className="hover:text-mist">
-                Cart
-              </Link>
-            </li>
-            <li>
-              <Link href="/checkout" className="hover:text-mist">
-                Checkout
+              <Link href="/collections/limited" className="hover:text-paper">
+                Limited Edition
               </Link>
             </li>
           </ul>
         </div>
 
         <div className="md:col-span-3">
-          <p className="text-xs uppercase tracking-[0.2em] text-mist/50">
-            Notes
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">
+            Customer Care
           </p>
-          <p className="mt-4 text-sm leading-relaxed text-mist/70">
-            This is a fictional brand for demonstration. Checkout does not
-            process real payments.
+          <ul className="mt-4 space-y-2 text-sm text-paper/75">
+            <li>
+              <Link href="/size-guide" className="hover:text-paper">
+                Size Guide
+              </Link>
+            </li>
+            <li>
+              <Link href="/about#shipping" className="hover:text-paper">
+                Shipping
+              </Link>
+            </li>
+            <li>
+              <Link href="/about#returns" className="hover:text-paper">
+                Returns
+              </Link>
+            </li>
+            <li>
+              <Link href="/cart" className="hover:text-paper">
+                Track Order
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className="md:col-span-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/45">
+            Company
           </p>
+          <ul className="mt-4 space-y-2 text-sm text-paper/75">
+            <li>
+              <Link href="/about" className="hover:text-paper">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/blog" className="hover:text-paper">
+                Journal
+              </Link>
+            </li>
+            <li>
+              <Link href="/about#careers" className="hover:text-paper">
+                Careers
+              </Link>
+            </li>
+            <li>
+              <Link href="/about#contact" className="hover:text-paper">
+                Contact
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 text-xs text-mist/45 md:flex-row md:items-center md:justify-between md:px-8">
-          <p>© {new Date().getFullYear()} FORMA Studio · Demo store</p>
-          <p>Designed for portfolios and case studies</p>
+        <div className="mx-auto flex max-w-7xl flex-col gap-2 px-5 py-5 text-xs text-paper/40 md:flex-row md:items-center md:justify-between md:px-8">
+          <p>© {new Date().getFullYear()} SOLEVA · Demo storefront</p>
+          <p>Free shipping over ₹3,000 · Easy 14-day returns</p>
         </div>
       </div>
     </footer>

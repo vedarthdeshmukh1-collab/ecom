@@ -39,7 +39,7 @@ export default async function CollectionPage({
 
   return (
     <div>
-      <section className="relative min-h-[52vh] overflow-hidden bg-ink text-mist md:min-h-[60vh]">
+      <section className="relative min-h-[52vh] overflow-hidden bg-ink text-paper md:min-h-[60vh]">
         <Image
           src={collection.image}
           alt={collection.name}
@@ -50,13 +50,13 @@ export default async function CollectionPage({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/30 to-ink/20" />
         <div className="relative z-10 mx-auto flex min-h-[52vh] max-w-7xl flex-col justify-end px-5 pb-12 pt-28 md:min-h-[60vh] md:px-8 md:pb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-mist/70">
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-paper/70">
             Collection
           </p>
-          <h1 className="mt-3 font-display text-5xl tracking-tight md:text-7xl">
+          <h1 className="mt-3 font-display text-5xl font-bold tracking-tight md:text-7xl">
             {collection.name}
           </h1>
-          <p className="mt-4 max-w-lg text-base text-mist/80 md:text-lg">
+          <p className="mt-4 max-w-lg text-base text-paper/80 md:text-lg">
             {collection.description}
           </p>
         </div>
@@ -69,7 +69,7 @@ export default async function CollectionPage({
           </p>
           <Link
             href="/shop"
-            className="text-sm tracking-wide underline-offset-4 hover:underline"
+            className="text-sm font-semibold text-accent hover:underline"
           >
             Shop all
           </Link>
