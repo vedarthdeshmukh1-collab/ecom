@@ -150,8 +150,8 @@ export const products: Product[] = [
       { name: "Smoke glass", hex: "#8a8f8c" },
     ],
     images: [
-      "https://images.unsplash.com/photo-1524484487850-91a7c6e5f2a3?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1543198126-a87ad1cd7d5f?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1400&q=80",
     ],
     featured: true,
   },
@@ -174,7 +174,7 @@ export const products: Product[] = [
     colors: [{ name: "Walnut", hex: "#5c4033" }],
     images: [
       "https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1532372320572-cda25611abd4?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1484101403633-562f891dc89a?auto=format&fit=crop&w=1400&q=80",
     ],
   },
   {
@@ -252,7 +252,7 @@ export const products: Product[] = [
     ],
     images: [
       "https://images.unsplash.com/photo-1594620302200-9a762244a156?auto=format&fit=crop&w=1400&q=80",
-      "https://images.unsplash.com/photo-1505693416388-ac5ce060fe85?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1400&q=80",
     ],
   },
   {
@@ -276,7 +276,7 @@ export const products: Product[] = [
       { name: "Slate", hex: "#5a5e5c" },
     ],
     images: [
-      "https://images.unsplash.com/photo-1543198126-a87ad1cd7d5f?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1579656592043-a20e25a4aa4b?auto=format&fit=crop&w=1400&q=80",
       "https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?auto=format&fit=crop&w=1400&q=80",
     ],
   },
