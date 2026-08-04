@@ -182,7 +182,7 @@ export function CartDrawer() {
                       >
                         <span className="relative h-14 w-14 overflow-hidden rounded-lg bg-mist">
                           <Image
-                            src={p.images[0]}
+                            src={p.images.thumbnail}
                             alt=""
                             fill
                             className="object-cover"

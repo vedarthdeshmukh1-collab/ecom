@@ -19,7 +19,7 @@ export default function HomePage() {
     <>
       <section className="relative min-h-[100svh] overflow-hidden hero-wash text-paper">
         <Image
-          src="https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=2000&q=80"
+          src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=2000&q=80"
           alt="Athlete in premium running sneakers"
           fill
           priority

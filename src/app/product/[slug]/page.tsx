@@ -8,6 +8,7 @@ import {
   formatPrice,
   getProduct,
   getReviewsForProduct,
+  productImageList,
   products,
 } from "@/data/products";
 
@@ -29,7 +30,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${product.name} · SOLEVA`,
       description: product.description,
-      images: [product.images[0]],
+      images: [product.images.mainImage],
     },
   };
 }
@@ -43,6 +44,7 @@ export default async function ProductPage({
   const product = getProduct(slug);
   if (!product) notFound();
 
+  const gallery = productImageList(product);
   const related = products
     .filter(
       (p) =>
@@ -59,7 +61,7 @@ export default async function ProductPage({
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    image: product.images,
+    image: gallery,
     description: product.description,
     brand: { "@type": "Brand", name: "SOLEVA" },
     sku: product.id,
@@ -87,14 +89,22 @@ export default async function ProductPage({
 
       <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-2 md:gap-14 md:px-8">
         <div className="space-y-3">
-          {product.images.map((src, index) => (
+          {gallery.map((src, index) => (
             <div
               key={`${src}-${index}`}
               className="relative aspect-square overflow-hidden rounded-2xl bg-mist"
             >
               <Image
                 src={src}
-                alt={`${product.name} view ${index + 1}`}
+                alt={`${product.name} — ${
+                  index === 0
+                    ? "main"
+                    : index === 1
+                      ? "hover angle"
+                      : index === gallery.length - 1
+                        ? "lifestyle"
+                        : `gallery angle ${index - 1}`
+                }`}
                 fill
                 priority={index === 0}
                 className="object-cover transition duration-500 hover:scale-105"

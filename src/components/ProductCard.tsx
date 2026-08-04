@@ -32,14 +32,14 @@ export function ProductCard({
   const [quickSize, setQuickSize] = useState<number | null>(null);
   const wished = has(product.id);
   const discount = discountPercent(product.price, product.compareAt);
-  const hoverSrc = product.images[1] ?? product.images[0];
+  const hoverSrc = product.images.hoverImage;
 
   return (
     <article className="group relative">
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-mist">
         <Link href={`/product/${product.slug}`} className="block h-full">
           <Image
-            src={product.images[0]}
+            src={product.images.mainImage}
             alt={product.name}
             fill
             priority={priority}
@@ -126,7 +126,7 @@ export function ProductCard({
               {product.name}
             </h3>
             <p className="mt-0.5 text-xs text-muted">
-              {product.colors[0]?.name} · {product.category}
+              {product.primaryColor} · {product.category}
             </p>
             <div className="mt-1 flex items-center gap-1.5">
               <Stars rating={product.rating} />

@@ -39,7 +39,7 @@ export const blogPosts: BlogPost[] = [
       "Limited capsules are smaller and more frequent. If you love a colorway, move early.",
     ],
     image:
-      "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1400&q=80",
+      "https://images.unsplash.com/photo-1556906781-9a412961c28c?auto=format&fit=crop&w=1400&q=80",
     date: "2026-05-18",
     readTime: "5 min",
     category: "Culture",
@@ -56,7 +56,7 @@ export const blogPosts: BlogPost[] = [
       "For white rubber midsoles, a magic eraser or baking-soda paste works wonders between deep cleans.",
     ],
     image:
-      "https://images.unsplash.com/photo-1560769629-975ec94e6a86?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/684152/pexels-photo-684152.jpeg?auto=compress&cs=tinysrgb&w=1400",
     date: "2026-04-22",
     readTime: "4 min",
     category: "Care",
@@ -72,7 +72,7 @@ export const blogPosts: BlogPost[] = [
       "If you mix both, a daily trainer like Velocity Runner covers easy runs and long walks without compromise.",
     ],
     image:
-      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/6770028/pexels-photo-6770028.jpeg?auto=compress&cs=tinysrgb&w=1400",
     date: "2026-03-30",
     readTime: "5 min",
     category: "Guides",
@@ -89,7 +89,7 @@ export const blogPosts: BlogPost[] = [
       "Try Rapid X if you want a balanced pickup-to-league option with strong ankle padding.",
     ],
     image:
-      "https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=1400&q=80",
+      "https://images.pexels.com/photos/5325588/pexels-photo-5325588.jpeg?auto=compress&cs=tinysrgb&w=1400",
     date: "2026-02-14",
     readTime: "7 min",
     category: "Guides",

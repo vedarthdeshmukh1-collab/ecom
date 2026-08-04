@@ -7,10 +7,12 @@ import { products, type ProductCategory } from "@/data/products";
 const categories = [
   "all",
   "running",
+  "walking",
   "casual",
   "basketball",
   "training",
   "lifestyle",
+  "trail",
   "limited",
 ] as const;
 
