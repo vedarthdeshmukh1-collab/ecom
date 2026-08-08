@@ -6,11 +6,7 @@ import {
   technologies,
 } from "./marketing";
 import type { Product, ProductCategory, ProductImages } from "./types";
-import {
-  assertValidCatalog,
-  listAssignedImages,
-  validateCatalog,
-} from "./validator";
+import { assertValidCatalog, listAssignedImages } from "./validator";
 
 export type {
   CatalogIssue,
