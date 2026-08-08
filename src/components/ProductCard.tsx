@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import {
@@ -8,6 +7,7 @@ import {
   formatPrice,
   type Product,
 } from "@/data/products";
+import { ProductImage } from "@/components/ProductImage";
 import { useCart } from "@/lib/cart-context";
 import { useWishlist } from "@/lib/wishlist-context";
 
@@ -29,31 +29,36 @@ export function ProductCard({
 }) {
   const { addItem, openCart } = useCart();
   const { toggle, has } = useWishlist();
-  const [quickSize, setQuickSize] = useState<number | null>(null);
+  const [quickSize, setQuickSize] = useState<string | null>(null);
   const wished = has(product.id);
   const discount = discountPercent(product.price, product.compareAt);
-  const hoverSrc = product.images.hoverImage;
+  const primary = product.images.primary;
+  const secondary = product.images.secondary;
 
   return (
     <article className="group relative">
       <div className="relative aspect-square overflow-hidden rounded-2xl bg-mist">
         <Link href={`/product/${product.slug}`} className="block h-full">
-          <Image
-            src={product.images.mainImage}
+          <ProductImage
+            src={primary}
             alt={product.name}
             fill
             priority={priority}
-            className="object-cover transition duration-500 group-hover:opacity-0"
+            className={`object-cover transition duration-500 ${
+              secondary ? "group-hover:opacity-0" : "group-hover:scale-105"
+            }`}
             sizes="(max-width: 768px) 50vw, 25vw"
           />
-          <Image
-            src={hoverSrc}
-            alt=""
-            fill
-            className="object-cover opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
-            sizes="(max-width: 768px) 50vw, 25vw"
-            aria-hidden
-          />
+          {secondary && (
+            <ProductImage
+              src={secondary}
+              alt=""
+              fill
+              className="object-cover opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+              sizes="(max-width: 768px) 50vw, 25vw"
+              showUnavailable={false}
+            />
+          )}
         </Link>
 
         <div className="absolute left-3 top-3 flex flex-col gap-1.5">
@@ -107,8 +112,8 @@ export function ProductCard({
                 type="button"
                 className="rounded-full bg-accent py-2 text-[11px] font-semibold text-paper transition hover:bg-accent-deep"
                 onClick={() => {
-                  const size = quickSize ?? product.sizes[0];
-                  addItem(product, product.colors[0].name, size, 1);
+                  const size = quickSize ?? product.sizes[0]!;
+                  addItem(product, product.colors[0]!.name, size, 1);
                   openCart();
                 }}
               >

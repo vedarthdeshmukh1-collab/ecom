@@ -113,7 +113,7 @@ export function SearchModal({
                         >
                           <span className="relative h-12 w-12 overflow-hidden rounded-lg bg-mist">
                             <Image
-                              src={p.images.thumbnail}
+                              src={p.images.primary}
                               alt=""
                               fill
                               className="object-cover"
@@ -145,7 +145,7 @@ export function SearchModal({
                     >
                       <span className="relative h-14 w-14 overflow-hidden rounded-lg bg-mist">
                         <Image
-                          src={p.images.thumbnail}
+                          src={p.images.primary}
                           alt=""
                           fill
                           className="object-cover"

@@ -38,8 +38,8 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/collections/limited" className="hover:text-paper">
-                Limited Edition
+              <Link href="/collections/trail" className="hover:text-paper">
+                Trail
               </Link>
             </li>
           </ul>

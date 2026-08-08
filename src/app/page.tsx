@@ -145,8 +145,8 @@ export default function HomePage() {
             Flagship cushioning, breathable knits, and grip that stays honest —
             built for athletes who don’t clock out when the workout ends.
           </p>
-          <Link href="/collections/limited" className="btn-accent mt-8 inline-flex">
-            Shop limited edition
+          <Link href="/collections/running" className="btn-accent mt-8 inline-flex">
+            Shop running
           </Link>
         </div>
       </section>

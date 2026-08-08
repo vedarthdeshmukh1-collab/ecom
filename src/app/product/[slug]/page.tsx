@@ -1,14 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AddToCartPanel } from "@/components/AddToCartPanel";
 import { ProductCard } from "@/components/ProductCard";
+import { ProductImage } from "@/components/ProductImage";
 import {
   discountPercent,
   formatPrice,
   getProduct,
+  getProductById,
+  getRecommendedProducts,
   getReviewsForProduct,
-  productImageList,
+  productGallerySlots,
   products,
 } from "@/data/products";
 
@@ -30,7 +32,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${product.name} · SOLEVA`,
       description: product.description,
-      images: [product.images.mainImage],
+      images: [product.images.primary],
     },
   };
 }
@@ -41,42 +43,38 @@ export default async function ProductPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  // Resolve strictly by product identity (slug → id → owned images)
   const product = getProduct(slug);
   if (!product) notFound();
 
-  const gallery = productImageList(product);
-  const related = products
-    .filter(
-      (p) =>
-        p.id !== product.id &&
-        (p.category === product.category ||
-          p.sport === product.sport ||
-          p.gender === product.gender),
-    )
-    .slice(0, 4);
+  const owned = getProductById(product.id);
+  if (!owned || owned.id !== product.id) notFound();
+
+  const gallery = productGallerySlots(owned);
+  const related = getRecommendedProducts(owned, 4);
   const productReviews = getReviewsForProduct(slug);
-  const discount = discountPercent(product.price, product.compareAt);
+  const discount = discountPercent(owned.price, owned.compareAt);
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
-    name: product.name,
-    image: gallery,
-    description: product.description,
+    name: owned.name,
+    image: gallery.map((g) => g.url),
+    description: owned.description,
     brand: { "@type": "Brand", name: "SOLEVA" },
-    sku: product.id,
+    sku: owned.id,
     offers: {
       "@type": "Offer",
       priceCurrency: "INR",
-      price: product.price,
-      availability: product.inStock
+      price: owned.price,
+      availability: owned.inStock
         ? "https://schema.org/InStock"
         : "https://schema.org/OutOfStock",
     },
     aggregateRating: {
       "@type": "AggregateRating",
-      ratingValue: product.rating,
-      reviewCount: product.reviewCount,
+      ratingValue: owned.rating,
+      reviewCount: owned.reviewCount,
     },
   };
 
@@ -89,32 +87,39 @@ export default async function ProductPage({
 
       <div className="mx-auto grid max-w-7xl gap-10 px-5 md:grid-cols-2 md:gap-14 md:px-8">
         <div className="space-y-3">
-          {gallery.map((src, index) => (
-            <div
-              key={`${src}-${index}`}
-              className="relative aspect-square overflow-hidden rounded-2xl bg-mist"
-            >
-              <Image
-                src={src}
-                alt={`${product.name} — ${
-                  index === 0
-                    ? "main"
-                    : index === 1
-                      ? "hover angle"
-                      : index === gallery.length - 1
-                        ? "lifestyle"
-                        : `gallery angle ${index - 1}`
-                }`}
-                fill
-                priority={index === 0}
-                className="object-cover transition duration-500 hover:scale-105"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
+          {gallery.length === 0 ? (
+            <div className="relative aspect-square overflow-hidden rounded-2xl bg-mist">
+              <ProductImage src={null} alt={owned.name} fill />
             </div>
-          ))}
-          <div className="flex items-center justify-center rounded-2xl border border-dashed border-line bg-mist/50 py-10 text-sm text-muted">
-            360° preview — coming soon
-          </div>
+          ) : (
+            gallery.map(({ slot, url }) => (
+              <div
+                key={`${owned.id}-${slot}`}
+                className="relative aspect-square overflow-hidden rounded-2xl bg-mist"
+              >
+                <ProductImage
+                  src={url}
+                  alt={`${owned.name} — ${slot}`}
+                  fill
+                  priority={slot === "primary"}
+                  className="object-cover transition duration-500 hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                />
+              </div>
+            ))
+          )}
+          {(
+            ["side", "back", "top", "lifestyle"] as const
+          ).map((slot) =>
+            owned.images[slot] ? null : (
+              <div
+                key={`unavailable-${slot}`}
+                className="flex aspect-[3/1] items-center justify-center rounded-2xl border border-dashed border-line bg-mist/50 text-sm text-muted"
+              >
+                {slot} — Image unavailable
+              </div>
+            ),
+          )}
         </div>
 
         <div className="md:sticky md:top-28 md:self-start">
@@ -124,22 +129,22 @@ export default async function ProductPage({
             </Link>
             <span className="mx-2">/</span>
             <Link
-              href={`/collections/${product.collection}`}
+              href={`/collections/${owned.collection}`}
               className="capitalize hover:text-ink"
             >
-              {product.collection}
+              {owned.collection}
             </Link>
           </nav>
 
           <h1 className="mt-4 font-display text-4xl font-bold tracking-tight md:text-5xl">
-            {product.name}
+            {owned.name}
           </h1>
 
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <p className="text-2xl font-semibold">{formatPrice(product.price)}</p>
-            {product.compareAt && (
+            <p className="text-2xl font-semibold">{formatPrice(owned.price)}</p>
+            {owned.compareAt && (
               <p className="text-muted line-through">
-                {formatPrice(product.compareAt)}
+                {formatPrice(owned.compareAt)}
               </p>
             )}
             {discount && (
@@ -150,16 +155,18 @@ export default async function ProductPage({
           </div>
 
           <p className="mt-2 text-sm text-muted">
-            <span className="text-accent">{"★".repeat(Math.round(product.rating))}</span>{" "}
-            {product.rating} · {product.reviewCount} reviews
+            <span className="text-accent">
+              {"★".repeat(Math.round(owned.rating))}
+            </span>{" "}
+            {owned.rating} · {owned.reviewCount} reviews · {owned.color}
           </p>
 
           <p className="mt-6 text-base leading-relaxed text-muted">
-            {product.description}
+            {owned.description}
           </p>
 
           <div className="mt-8">
-            <AddToCartPanel product={product} />
+            <AddToCartPanel product={owned} />
           </div>
 
           <div className="mt-10 space-y-6 border-t border-line pt-8">
@@ -168,7 +175,7 @@ export default async function ProductPage({
                 Features
               </h2>
               <ul className="mt-3 space-y-2 text-sm text-ink-soft">
-                {product.details.map((d) => (
+                {owned.details.map((d) => (
                   <li key={d} className="flex gap-2">
                     <span className="text-accent">—</span>
                     {d}
@@ -181,7 +188,7 @@ export default async function ProductPage({
                 Technology
               </h2>
               <div className="mt-3 flex flex-wrap gap-2">
-                {product.technology.map((t) => (
+                {owned.technology.map((t) => (
                   <span
                     key={t}
                     className="rounded-full bg-mist px-3 py-1.5 text-xs font-medium"
@@ -195,14 +202,14 @@ export default async function ProductPage({
               <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Materials
               </h2>
-              <p className="mt-3 text-sm text-ink-soft">{product.materials}</p>
+              <p className="mt-3 text-sm text-ink-soft">{owned.materials}</p>
             </div>
             <div>
               <h2 className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                 Specifications
               </h2>
               <dl className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                {Object.entries(product.specs).map(([k, v]) => (
+                {Object.entries(owned.specs).map(([k, v]) => (
                   <div key={k} className="rounded-xl bg-mist px-3 py-2">
                     <dt className="text-xs text-muted">{k}</dt>
                     <dd className="font-medium">{v}</dd>

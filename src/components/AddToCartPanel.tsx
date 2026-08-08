@@ -11,8 +11,8 @@ export function AddToCartPanel({ product }: { product: Product }) {
   const router = useRouter();
   const { addItem } = useCart();
   const { toggle, has } = useWishlist();
-  const [color, setColor] = useState(product.colors[0]?.name ?? "Default");
-  const [size, setSize] = useState<number | null>(null);
+  const [color, setColor] = useState(product.colors[0]?.name ?? product.color);
+  const [size, setSize] = useState<string | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
   const [error, setError] = useState("");

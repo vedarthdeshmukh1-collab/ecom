@@ -17,7 +17,7 @@ export type CartItem = {
   price: number;
   image: string;
   color: string;
-  size: number;
+  size: string;
   quantity: number;
 };
 
@@ -30,14 +30,14 @@ type CartContextValue = {
   addItem: (
     product: Product,
     color: string,
-    size: number,
+    size: string,
     quantity?: number,
   ) => void;
-  removeItem: (productId: string, color: string, size: number) => void;
+  removeItem: (productId: string, color: string, size: string) => void;
   updateQuantity: (
     productId: string,
     color: string,
-    size: number,
+    size: string,
     quantity: number,
   ) => void;
   clearCart: () => void;
@@ -46,7 +46,7 @@ type CartContextValue = {
 };
 
 const CartContext = createContext<CartContextValue | null>(null);
-const STORAGE_KEY = "soleva-cart-v1";
+const STORAGE_KEY = "soleva-cart-v2";
 
 type CartStore = {
   items: CartItem[];
@@ -108,7 +108,7 @@ function setStore(next: CartStore) {
   emit();
 }
 
-function itemKey(productId: string, color: string, size: number) {
+function itemKey(productId: string, color: string, size: string) {
   return `${productId}:${color}:${size}`;
 }
 
@@ -132,7 +132,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const addItem = useCallback(
-    (product: Product, color: string, size: number, quantity = 1) => {
+    (product: Product, color: string, size: string, quantity = 1) => {
       const prev = store.items;
       const existing = prev.find(
         (i) =>
@@ -153,7 +153,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
               slug: product.slug,
               name: product.name,
               price: product.price,
-              image: product.images.mainImage,
+              image: product.images.primary,
               color,
               size,
               quantity,
@@ -165,7 +165,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const removeItem = useCallback(
-    (productId: string, color: string, size: number) => {
+    (productId: string, color: string, size: string) => {
       setStore({
         ...store,
         items: store.items.filter(
@@ -179,7 +179,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const updateQuantity = useCallback(
-    (productId: string, color: string, size: number, quantity: number) => {
+    (productId: string, color: string, size: string, quantity: number) => {
       if (quantity < 1) {
         setStore({
           ...store,

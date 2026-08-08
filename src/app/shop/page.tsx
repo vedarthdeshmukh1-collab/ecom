@@ -8,12 +8,10 @@ const categories = [
   "all",
   "running",
   "walking",
-  "casual",
-  "basketball",
   "training",
+  "basketball",
   "lifestyle",
   "trail",
-  "limited",
 ] as const;
 
 const genders = ["all", "men", "women", "unisex"] as const;
@@ -23,7 +21,6 @@ const sports = [
   "gym",
   "walking",
   "basketball",
-  "tennis",
   "hiking",
   "lifestyle",
 ] as const;
@@ -34,7 +31,7 @@ export default function ShopPage() {
   const [category, setCategory] = useState<(typeof categories)[number]>("all");
   const [gender, setGender] = useState<(typeof genders)[number]>("all");
   const [sport, setSport] = useState<(typeof sports)[number]>("all");
-  const [size, setSize] = useState<number | "all">("all");
+  const [size, setSize] = useState<string | "all">("all");
   const [minRating, setMinRating] = useState(0);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sort, setSort] = useState<SortKey>("featured");
@@ -43,9 +40,9 @@ export default function ShopPage() {
   const [pending, startTransition] = useTransition();
 
   const allSizes = useMemo(() => {
-    const set = new Set<number>();
+    const set = new Set<string>();
     products.forEach((p) => p.sizes.forEach((s) => set.add(s)));
-    return Array.from(set).sort((a, b) => a - b);
+    return Array.from(set).sort((a, b) => Number(a) - Number(b));
   }, []);
 
   const filtered = useMemo(() => {
