@@ -62,7 +62,12 @@ export function ProductCard({
         </Link>
 
         <div className="absolute left-3 top-3 flex flex-col gap-1.5">
-          {product.new && (
+          {product.badge && (
+            <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
+              {product.badge}
+            </span>
+          )}
+          {!product.badge && product.new && (
             <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
               New
             </span>

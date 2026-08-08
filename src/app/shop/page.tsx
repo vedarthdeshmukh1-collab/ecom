@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState, useTransition, type ReactNode } from "react";
+import { Suspense, useMemo, useState, useTransition, type ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 import { ProductCard } from "@/components/ProductCard";
 import { products, type ProductCategory } from "@/data/products";
 
@@ -8,9 +9,8 @@ const categories = [
   "all",
   "running",
   "walking",
-  "training",
-  "basketball",
   "lifestyle",
+  "training",
   "trail",
 ] as const;
 
@@ -18,19 +18,48 @@ const genders = ["all", "men", "women", "unisex"] as const;
 const sports = [
   "all",
   "running",
-  "gym",
   "walking",
-  "basketball",
-  "hiking",
   "lifestyle",
+  "training",
+  "trail",
 ] as const;
 
 type SortKey = "featured" | "price-asc" | "price-desc" | "rating" | "name";
 
+function isSport(value: string | null): value is (typeof sports)[number] {
+  return !!value && (sports as readonly string[]).includes(value);
+}
+
+function isCategory(value: string | null): value is (typeof categories)[number] {
+  return !!value && (categories as readonly string[]).includes(value);
+}
+
 export default function ShopPage() {
-  const [category, setCategory] = useState<(typeof categories)[number]>("all");
+  return (
+    <Suspense
+      fallback={
+        <div className="mx-auto max-w-7xl px-5 pb-24 pt-28 text-sm text-muted md:px-8">
+          Loading shop…
+        </div>
+      }
+    >
+      <ShopPageContent />
+    </Suspense>
+  );
+}
+
+function ShopPageContent() {
+  const searchParams = useSearchParams();
+  const sportParam = searchParams.get("sport");
+  const categoryParam = searchParams.get("category");
+
+  const [category, setCategory] = useState<(typeof categories)[number]>(
+    isCategory(categoryParam) ? categoryParam : "all",
+  );
   const [gender, setGender] = useState<(typeof genders)[number]>("all");
-  const [sport, setSport] = useState<(typeof sports)[number]>("all");
+  const [sport, setSport] = useState<(typeof sports)[number]>(
+    isSport(sportParam) ? sportParam : "all",
+  );
   const [size, setSize] = useState<string | "all">("all");
   const [minRating, setMinRating] = useState(0);
   const [inStockOnly, setInStockOnly] = useState(false);

@@ -181,13 +181,15 @@ export function CartDrawer() {
                         className="flex items-center gap-3 rounded-xl p-2 hover:bg-mist"
                       >
                         <span className="relative h-14 w-14 overflow-hidden rounded-lg bg-mist">
-                          <Image
-                            src={p.images.primary}
-                            alt=""
-                            fill
-                            className="object-cover"
-                            sizes="56px"
-                          />
+                          {p.images.primary ? (
+                            <Image
+                              src={p.images.primary}
+                              alt=""
+                              fill
+                              className="object-cover"
+                              sizes="56px"
+                            />
+                          ) : null}
                         </span>
                         <span className="text-sm font-medium">{p.name}</span>
                       </Link>

@@ -1,6 +1,9 @@
+import { existsSync } from "node:fs";
+import { join } from "node:path";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
+  IMAGE_FILENAMES,
   IMAGE_SLOTS,
   products,
   validateCatalog,
@@ -11,8 +14,7 @@ import { catalogProducts } from "@/data/catalog/products";
 export const dynamic = "force-dynamic";
 
 /**
- * Development-only catalogue audit.
- * Inspect every product's owned image slots and duplicate ownership errors.
+ * Development catalogue audit — inspect ownership, missing files, duplicates.
  */
 export default function CatalogAuditPage() {
   if (process.env.NODE_ENV === "production") {
@@ -21,7 +23,10 @@ export default function CatalogAuditPage() {
 
   const result = validateCatalog(catalogProducts);
 
-  const urlOwners = new Map<string, { id: string; name: string; slot: string }[]>();
+  const urlOwners = new Map<
+    string,
+    { id: string; name: string; slot: string }[]
+  >();
   for (const product of catalogProducts) {
     for (const slot of IMAGE_SLOTS) {
       const url = product.images[slot];
@@ -33,10 +38,11 @@ export default function CatalogAuditPage() {
     }
   }
 
-  function statusFor(productId: string) {
-    const productErrors = result.errors.filter((e) => e.productId === productId);
-    if (productErrors.length > 0) return { ok: false, errors: productErrors };
-    return { ok: true, errors: [] };
+  function fileExists(productId: string, slot: ImageSlot) {
+    const filename = IMAGE_FILENAMES[slot];
+    return existsSync(
+      join(process.cwd(), "public", "products", productId, filename),
+    );
   }
 
   return (
@@ -49,8 +55,8 @@ export default function CatalogAuditPage() {
           Catalog audit
         </h1>
         <p className="mt-4 text-muted">
-          Every product owns its image set. Duplicate URLs across products are
-          flagged. Missing optional slots show as unavailable — never borrowed.
+          Master SOLEVA catalogue — 5 products. Each image slot is owned by
+          exactly one product ID.
         </p>
         <div className="mt-6 flex flex-wrap gap-3 text-sm">
           <span className="rounded-full bg-mist px-3 py-1.5 font-medium">
@@ -67,9 +73,6 @@ export default function CatalogAuditPage() {
               ? "✓ validateCatalog PASSED"
               : `❌ ${result.errors.length} error(s)`}
           </span>
-          <span className="rounded-full bg-amber-50 px-3 py-1.5 font-medium text-amber-800">
-            {result.warnings.length} warning(s)
-          </span>
         </div>
       </header>
 
@@ -80,14 +83,14 @@ export default function CatalogAuditPage() {
           </h2>
           <ul className="mt-4 space-y-3 text-sm text-red-900">
             {result.errors.map((error, i) => (
-              <li key={`${error.code}-${i}`} className="rounded-xl bg-white/70 p-3">
+              <li
+                key={`${error.code}-${i}`}
+                className="rounded-xl bg-white/70 p-3"
+              >
                 <p className="font-semibold">
                   Product: {error.productName ?? error.productId ?? "unknown"}
                 </p>
                 <p className="mt-1">Problem: {error.message}</p>
-                <p className="mt-1 text-xs uppercase tracking-wide text-red-700">
-                  {error.code}
-                </p>
               </li>
             ))}
           </ul>
@@ -96,7 +99,10 @@ export default function CatalogAuditPage() {
 
       <div className="mt-12 space-y-10">
         {catalogProducts.map((product) => {
-          const status = statusFor(product.id);
+          const productErrors = result.errors.filter(
+            (e) => e.productId === product.id,
+          );
+          const ok = productErrors.length === 0;
           return (
             <article
               key={product.id}
@@ -111,41 +117,47 @@ export default function CatalogAuditPage() {
                     {product.name}
                   </h2>
                   <p className="mt-1 text-sm text-muted">
-                    {product.category} / {product.subcategory} · Color:{" "}
-                    {product.color}
+                    {product.category} · {product.color} · ₹
+                    {product.price.toLocaleString("en-IN")}
+                    {product.badge ? ` · ${product.badge}` : ""}
                   </p>
                 </div>
                 <span
                   className={`rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide ${
-                    status.ok
+                    ok
                       ? "bg-emerald-100 text-emerald-800"
                       : "bg-red-100 text-red-800"
                   }`}
                 >
-                  {status.ok ? "✓ VALID" : "❌ IMAGE ERROR"}
+                  {ok ? "✓ VALID" : "❌ IMAGE ERROR"}
                 </span>
               </div>
 
-              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+              <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-7">
                 {IMAGE_SLOTS.map((slot: ImageSlot) => {
                   const url = product.images[slot];
+                  const onDisk = fileExists(product.id, slot);
                   const owners = url
-                    ? urlOwners.get(url.split("?")[0]!) ?? []
+                    ? (urlOwners.get(url.split("?")[0]!) ?? [])
                     : [];
                   const duplicate = owners.length > 1;
+                  let status: "VALID" | "MISSING" | "DUPLICATE" = "VALID";
+                  if (!url || !onDisk) status = "MISSING";
+                  if (duplicate) status = "DUPLICATE";
+
                   return (
                     <div key={slot} className="space-y-2">
                       <p className="text-[11px] font-semibold uppercase tracking-wider text-muted">
                         {slot}
                       </p>
                       <div className="relative aspect-square overflow-hidden rounded-xl bg-mist">
-                        {url ? (
+                        {url && onDisk ? (
                           <Image
                             src={url}
                             alt={`${product.name} ${slot}`}
                             fill
                             className="object-cover"
-                            sizes="160px"
+                            sizes="140px"
                           />
                         ) : (
                           <div className="flex h-full items-center justify-center px-2 text-center text-[10px] font-medium uppercase tracking-wide text-muted">
@@ -153,11 +165,24 @@ export default function CatalogAuditPage() {
                           </div>
                         )}
                       </div>
+                      <p
+                        className={`text-[10px] font-bold ${
+                          status === "VALID"
+                            ? "text-emerald-700"
+                            : "text-red-700"
+                        }`}
+                      >
+                        {status === "VALID"
+                          ? "✓ VALID"
+                          : status === "DUPLICATE"
+                            ? "❌ DUPLICATE"
+                            : "❌ MISSING"}
+                      </p>
                       {duplicate && (
-                        <div className="rounded-lg bg-red-50 p-2 text-[10px] leading-snug text-red-800">
+                        <div className="rounded-lg bg-red-50 p-2 text-[10px] text-red-800">
                           <p className="font-bold">DUPLICATE IMAGE</p>
-                          <p className="mt-1">Used by:</p>
-                          <ul className="mt-0.5 list-disc pl-3">
+                          <p>Used by:</p>
+                          <ul className="list-disc pl-3">
                             {owners.map((o) => (
                               <li key={`${o.id}-${o.slot}`}>
                                 {o.name} ({o.slot})
@@ -165,11 +190,6 @@ export default function CatalogAuditPage() {
                             ))}
                           </ul>
                         </div>
-                      )}
-                      {url && (
-                        <p className="truncate text-[10px] text-muted" title={url}>
-                          {url}
-                        </p>
                       )}
                     </div>
                   );

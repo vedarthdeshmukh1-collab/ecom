@@ -15,12 +15,13 @@ export type {
   Gender,
   ImageSlot,
   Product,
+  ProductBadge,
   ProductCategory,
   ProductImages,
   ProductSubcategory,
 } from "./types";
 
-export { IMAGE_SLOTS } from "./types";
+export { IMAGE_FILENAMES, IMAGE_SLOTS } from "./types";
 export {
   assertValidCatalog,
   getAssignedImageCount,
@@ -28,37 +29,15 @@ export {
   validateCatalog,
 } from "./validator";
 
-/** Storefront product with UI convenience fields (derived, never override ownership). */
+/** Storefront product with UI convenience fields. */
 export type StoreProduct = Product & {
-  /** Alias for originalPrice — used by pricing UI */
   compareAt?: number;
   primaryColor: string;
   colors: { name: string; hex: string }[];
-  /** Collection routing key — mirrors category (or gender for men/women pages) */
   collection: string;
-  /** Sport filter key derived from category/subcategory */
   sport: string;
   brand: string;
 };
-
-function sportFromProduct(product: Product): string {
-  switch (product.category) {
-    case "running":
-      return "running";
-    case "walking":
-      return "walking";
-    case "training":
-      return "gym";
-    case "basketball":
-      return "basketball";
-    case "trail":
-      return "hiking";
-    case "lifestyle":
-      return "lifestyle";
-    default:
-      return product.category;
-  }
-}
 
 function toStoreProduct(product: Product): StoreProduct {
   return {
@@ -67,14 +46,14 @@ function toStoreProduct(product: Product): StoreProduct {
     primaryColor: product.color,
     colors: [{ name: product.color, hex: product.colorHex }],
     collection: product.category,
-    sport: sportFromProduct(product),
+    // Sport filter key === category for deterministic shop?sport= routing
+    sport: product.category,
     brand: "SOLEVA",
   };
 }
 
 export const products: StoreProduct[] = catalogProducts.map(toStoreProduct);
 
-// Validate once at module load in development
 if (process.env.NODE_ENV !== "production") {
   assertValidCatalog(catalogProducts);
 }
@@ -99,17 +78,17 @@ export type Review = {
 export const reviews: Review[] = [
   {
     id: "r1",
-    productSlug: "velocity-runner",
+    productSlug: "velocity-one",
     name: "Aarav M.",
     rating: 5,
     title: "Daily miles feel effortless",
-    body: "Light, breathable, and the white colorway stays clean. Exactly the Velocity Runner I ordered.",
+    body: "Light, breathable, and the white/black colorway looks exactly like the product photos.",
     verified: true,
     date: "2026-06-12",
   },
   {
     id: "r2",
-    productSlug: "cloud-walk",
+    productSlug: "cloudstep",
     name: "Neha S.",
     rating: 5,
     title: "All-day comfort",
@@ -119,7 +98,7 @@ export const reviews: Review[] = [
   },
   {
     id: "r3",
-    productSlug: "forge-gym",
+    productSlug: "apex-pro",
     name: "Rohan D.",
     rating: 5,
     title: "Stable for lifting and HIIT",
@@ -129,17 +108,17 @@ export const reviews: Review[] = [
   },
   {
     id: "r4",
-    productSlug: "urban-motion",
+    productSlug: "urban-x",
     name: "Ishaan P.",
     rating: 5,
     title: "Street-ready",
-    body: "Looks exactly like the product photos. Thick midsole but still flexible.",
+    body: "Triple black looks sharp with joggers. Soft ride for all-day city wear.",
     verified: true,
     date: "2026-07-18",
   },
   {
     id: "r5",
-    productSlug: "ridge-trail",
+    productSlug: "trailcore",
     name: "Kavya R.",
     rating: 5,
     title: "Grip on wet rock",
@@ -149,10 +128,6 @@ export const reviews: Review[] = [
   },
 ];
 
-/**
- * Ordered gallery for a product — only assigned (non-null) owned slots.
- * Never invents or borrows images.
- */
 export function productImageList(product: Product | StoreProduct): string[] {
   return listAssignedImages(product.images).map((item) => item.url);
 }
@@ -218,24 +193,23 @@ export function discountPercent(price: number, compareAt?: number) {
   return Math.round(((compareAt - price) / compareAt) * 100);
 }
 
-/** Recommended products use their own image ownership — never the source gallery. */
-export function getRecommendedProducts(product: Product | StoreProduct, limit = 4) {
+export function getRecommendedProducts(
+  product: Product | StoreProduct,
+  limit = 4,
+) {
   return products
-    .filter(
-      (p) =>
-        p.id !== product.id &&
-        (p.category === product.category || p.gender === product.gender),
-    )
+    .filter((p) => p.id !== product.id)
     .slice(0, limit);
 }
 
 export function emptyImages(): ProductImages {
   return {
-    primary: "",
+    primary: null,
     secondary: null,
     side: null,
-    back: null,
+    rear: null,
     top: null,
+    sole: null,
     lifestyle: null,
   };
 }

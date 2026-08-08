@@ -1,8 +1,7 @@
 import type { Collection } from "./types";
 
 /**
- * Marketing banners only.
- * These URLs must NEVER be used as product images.
+ * Marketing banners only — never used as product SKU images.
  */
 export const marketingCollections: Collection[] = [
   {
@@ -24,16 +23,16 @@ export const marketingCollections: Collection[] = [
     image: "/marketing/running.jpg",
   },
   {
+    slug: "walking",
+    name: "Walking",
+    description: "Everyday comfort for city walks and long-distance days.",
+    image: "/marketing/walking.jpg",
+  },
+  {
     slug: "lifestyle",
     name: "Lifestyle",
     description: "Street-ready sneakers that move from gym to city.",
     image: "/marketing/lifestyle.jpg",
-  },
-  {
-    slug: "trail",
-    name: "Trail",
-    description: "Grip and protection for hiking, trail running, and outdoor miles.",
-    image: "/marketing/trail.jpg",
   },
   {
     slug: "training",
@@ -42,16 +41,10 @@ export const marketingCollections: Collection[] = [
     image: "/marketing/training.jpg",
   },
   {
-    slug: "basketball",
-    name: "Basketball",
-    description: "Court performance and lifestyle basketball footwear.",
-    image: "/marketing/basketball.jpg",
-  },
-  {
-    slug: "walking",
-    name: "Walking",
-    description: "Everyday comfort for city walks and long-distance days.",
-    image: "/marketing/walking.jpg",
+    slug: "trail",
+    name: "Trail",
+    description: "Grip and protection for hiking, trail running, and outdoor miles.",
+    image: "/marketing/trail.jpg",
   },
 ];
 
@@ -62,28 +55,28 @@ export const marketingCategoryMeta: {
   href: string;
 }[] = [
   {
-    slug: "men",
-    name: "Men",
-    image: "/marketing/men.jpg",
-    href: "/collections/men",
-  },
-  {
-    slug: "women",
-    name: "Women",
-    image: "/marketing/women.jpg",
-    href: "/collections/women",
-  },
-  {
     slug: "running",
     name: "Running",
     image: "/marketing/running.jpg",
     href: "/collections/running",
   },
   {
+    slug: "walking",
+    name: "Walking",
+    image: "/marketing/walking.jpg",
+    href: "/collections/walking",
+  },
+  {
     slug: "lifestyle",
     name: "Lifestyle",
     image: "/marketing/lifestyle.jpg",
     href: "/collections/lifestyle",
+  },
+  {
+    slug: "training",
+    name: "Training",
+    image: "/marketing/training.jpg",
+    href: "/collections/training",
   },
   {
     slug: "trail",
@@ -93,7 +86,6 @@ export const marketingCategoryMeta: {
   },
 ];
 
-/** Marketing sport tiles — never used as product SKU images. */
 export const sports = [
   {
     name: "Running",
@@ -101,29 +93,24 @@ export const sports = [
     image: "/marketing/running.jpg",
   },
   {
-    name: "Gym",
-    href: "/shop?sport=gym",
-    image: "/marketing/training.jpg",
-  },
-  {
     name: "Walking",
     href: "/shop?sport=walking",
     image: "/marketing/walking.jpg",
   },
   {
-    name: "Basketball",
-    href: "/shop?sport=basketball",
-    image: "/marketing/basketball.jpg",
-  },
-  {
-    name: "Hiking",
-    href: "/shop?sport=hiking",
-    image: "/marketing/trail.jpg",
-  },
-  {
     name: "Lifestyle",
     href: "/shop?sport=lifestyle",
     image: "/marketing/lifestyle.jpg",
+  },
+  {
+    name: "Training",
+    href: "/shop?sport=training",
+    image: "/marketing/training.jpg",
+  },
+  {
+    name: "Trail",
+    href: "/shop?sport=trail",
+    image: "/marketing/trail.jpg",
   },
 ];
 
@@ -138,7 +125,7 @@ export const technologies = [
   },
   {
     title: "Anti Slip Rubber Sole",
-    body: "Multi-zone rubber outsole for grip on wet pavement, gym floors, and court.",
+    body: "Multi-zone rubber outsole for grip on wet pavement, gym floors, and trail.",
   },
   {
     title: "Lightweight Construction",

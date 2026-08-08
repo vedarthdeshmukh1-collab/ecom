@@ -32,7 +32,7 @@ export async function generateMetadata({
     openGraph: {
       title: `${product.name} · SOLEVA`,
       description: product.description,
-      images: [product.images.primary],
+      images: product.images.primary ? [product.images.primary] : [],
     },
   };
 }
@@ -109,7 +109,7 @@ export default async function ProductPage({
             ))
           )}
           {(
-            ["side", "back", "top", "lifestyle"] as const
+            ["rear", "top", "sole", "lifestyle"] as const
           ).map((slot) =>
             owned.images[slot] ? null : (
               <div
@@ -168,6 +168,12 @@ export default async function ProductPage({
           <div className="mt-8">
             <AddToCartPanel product={owned} />
           </div>
+
+          {owned.badge && (
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+              {owned.badge}
+            </p>
+          )}
 
           <div className="mt-10 space-y-6 border-t border-line pt-8">
             <div>

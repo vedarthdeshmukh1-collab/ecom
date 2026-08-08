@@ -3,13 +3,31 @@ import type {
   CatalogValidationResult,
   ImageSlot,
   Product,
+  ProductCategory,
   ProductImages,
 } from "./types";
 import { IMAGE_SLOTS } from "./types";
 
-/** Furniture catalogue leftovers — exclude shoe terms like "cushioning". */
+/** Furniture leftovers — exclude shoe terms like cushioning. */
 const FURNITURE_PATTERN =
   /\b(sofa|couch|armchair|dining\s*table|coffee\s*table|bed\s*frame|furniture|home\s*decor|floor\s*lamp|throw\s*cushion|cabinet|dresser|ottoman|bookshelf)\b/i;
+
+const ALLOWED_CATEGORIES: ProductCategory[] = [
+  "running",
+  "walking",
+  "training",
+  "lifestyle",
+  "trail",
+];
+
+/** Exact category assignment from master catalogue */
+const EXPECTED_CATEGORY: Record<string, ProductCategory> = {
+  "velocity-one": "running",
+  cloudstep: "walking",
+  "urban-x": "lifestyle",
+  "apex-pro": "training",
+  trailcore: "trail",
+};
 
 function normalizeUrl(url: string): string {
   return url.trim().split("?")[0]!;
@@ -28,9 +46,9 @@ function collectedImages(images: ProductImages): { slot: ImageSlot; url: string 
  * Strict catalog validator.
  * - Unique product IDs
  * - Unique image URLs across the entire catalog (no shared ownership)
- * - Required primary image
+ * - Required primary image path
+ * - Correct category assignments
  * - No furniture-related product data
- * - Required category / subcategory / color / price / name
  */
 export function validateCatalog(products: Product[]): CatalogValidationResult {
   const errors: CatalogIssue[] = [];
@@ -45,6 +63,14 @@ export function validateCatalog(products: Product[]): CatalogValidationResult {
       severity: "error",
       code: "EMPTY_CATALOG",
       message: "Catalog contains no products.",
+    });
+  }
+
+  if (products.length !== 5) {
+    warnings.push({
+      severity: "warning",
+      code: "UNEXPECTED_COUNT",
+      message: `Master catalogue expects 5 products, found ${products.length}.`,
     });
   }
 
@@ -99,13 +125,24 @@ export function validateCatalog(products: Product[]): CatalogValidationResult {
       });
     }
 
-    if (!product.category) {
+    if (!product.category || !ALLOWED_CATEGORIES.includes(product.category)) {
       errors.push({
         severity: "error",
         productId: product.id,
         productName: label,
         code: "MISSING_CATEGORY",
-        message: "Product is missing a category.",
+        message: "Product is missing a valid category.",
+      });
+    }
+
+    const expected = EXPECTED_CATEGORY[product.id];
+    if (expected && product.category !== expected) {
+      errors.push({
+        severity: "error",
+        productId: product.id,
+        productName: label,
+        code: "WRONG_CATEGORY",
+        message: `Expected category "${expected}", found "${product.category}".`,
       });
     }
 
@@ -156,12 +193,7 @@ export function validateCatalog(products: Product[]): CatalogValidationResult {
       product.materials,
       ...product.details,
       ...product.tags,
-      product.images?.primary,
-      product.images?.secondary,
-      product.images?.side,
-      product.images?.back,
-      product.images?.top,
-      product.images?.lifestyle,
+      ...IMAGE_SLOTS.map((slot) => product.images?.[slot]),
     ]
       .filter(Boolean)
       .join(" ");
@@ -183,7 +215,7 @@ export function validateCatalog(products: Product[]): CatalogValidationResult {
         productId: product.id,
         productName: label,
         code: "SPARSE_GALLERY",
-        message: `Only ${assigned.length} image slot(s) populated. Prefer product-accurate images; leaving slots unavailable is OK.`,
+        message: `Only ${assigned.length} image slot(s) populated.`,
       });
     }
 
@@ -197,6 +229,17 @@ export function validateCatalog(products: Product[]): CatalogValidationResult {
           message: `Invalid image URL in ${slot}: ${url}`,
         });
         continue;
+      }
+
+      // Ownership: image path must live under this product's folder
+      if (url.startsWith("/products/") && !url.startsWith(`/products/${product.id}/`)) {
+        errors.push({
+          severity: "error",
+          productId: product.id,
+          productName: label,
+          code: "CROSS_PRODUCT_IMAGE",
+          message: `Image in ${slot} does not belong to product folder /products/${product.id}/: ${url}`,
+        });
       }
 
       const key = normalizeUrl(url);
@@ -218,7 +261,6 @@ export function validateCatalog(products: Product[]): CatalogValidationResult {
       }
     }
 
-    // Within a single product, all non-null slots must also be unique
     const local = new Set<string>();
     for (const { slot, url } of assigned) {
       const key = normalizeUrl(url);

@@ -153,7 +153,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
               slug: product.slug,
               name: product.name,
               price: product.price,
-              image: product.images.primary,
+              image: product.images.primary ?? "",
               color,
               size,
               quantity,

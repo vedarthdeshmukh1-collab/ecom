@@ -4,15 +4,17 @@ import { ProductCard } from "@/components/ProductCard";
 import {
   categoryMeta,
   getBestSellers,
-  getNewArrivals,
+  getFeaturedProducts,
   sports,
   technologies,
 } from "@/data/products";
 import { reviews } from "@/data/products";
 
 export default function HomePage() {
-  const arrivals = getNewArrivals().slice(0, 4);
-  const bestsellers = getBestSellers().slice(0, 4);
+  const arrivals = getFeaturedProducts().slice(0, 4);
+  const bestsellers = getBestSellers().length
+    ? getBestSellers().slice(0, 4)
+    : getFeaturedProducts().slice(0, 4);
   const homeReviews = reviews.slice(0, 3);
 
   return (
