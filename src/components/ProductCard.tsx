@@ -44,7 +44,7 @@ export function ProductCard({
             alt={product.name}
             fill
             priority={priority}
-            className={`object-cover transition duration-500 ${
+            className={`object-contain p-3 transition duration-500 md:p-4 ${
               secondary ? "group-hover:opacity-0" : "group-hover:scale-105"
             }`}
             sizes="(max-width: 768px) 50vw, 25vw"
@@ -54,7 +54,7 @@ export function ProductCard({
               src={secondary}
               alt=""
               fill
-              className="object-cover opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+              className="object-contain p-3 opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-100 md:p-4"
               sizes="(max-width: 768px) 50vw, 25vw"
               showUnavailable={false}
             />

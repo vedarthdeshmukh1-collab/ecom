@@ -117,7 +117,8 @@ export function SearchModal({
                                 src={p.images.primary}
                                 alt=""
                                 fill
-                                className="object-cover"
+                                quality={90}
+                                className="object-contain p-0.5"
                                 sizes="48px"
                               />
                             ) : null}
@@ -151,7 +152,8 @@ export function SearchModal({
                             src={p.images.primary}
                             alt=""
                             fill
-                            className="object-cover"
+                            quality={90}
+                            className="object-contain p-0.5"
                             sizes="56px"
                           />
                         ) : null}

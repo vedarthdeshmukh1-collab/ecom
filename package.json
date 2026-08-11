@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "validate:catalog": "npx --yes tsx scripts/validate-catalog.ts",
-    "build:images": "node scripts/build-owned-catalog-images.mjs"
+    "build:images": "node scripts/build-owned-catalog-images.mjs",
+    "export:hq-images": "node scripts/export-hq-catalog-images.mjs"
   },
   "dependencies": {
     "next": "16.3.0",

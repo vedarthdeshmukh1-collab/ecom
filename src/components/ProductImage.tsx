@@ -12,6 +12,8 @@ type ProductImageProps = {
   className?: string;
   priority?: boolean;
   sizes?: string;
+  /** Must match an entry in next.config images.qualities */
+  quality?: 75 | 90;
   /** When true, broken/missing images show controlled placeholder */
   showUnavailable?: boolean;
 };
@@ -30,6 +32,7 @@ export function ProductImage({
   className = "",
   priority = false,
   sizes,
+  quality = 90,
   showUnavailable = true,
 }: ProductImageProps) {
   const [failed, setFailed] = useState(false);
@@ -60,6 +63,7 @@ export function ProductImage({
         alt={alt}
         fill
         priority={priority}
+        quality={quality}
         className={className}
         sizes={sizes}
         onError={() => setFailed(true)}
@@ -74,6 +78,7 @@ export function ProductImage({
       width={width ?? 800}
       height={height ?? 800}
       priority={priority}
+      quality={quality}
       className={className}
       sizes={sizes}
       onError={() => setFailed(true)}

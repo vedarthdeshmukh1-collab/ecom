@@ -95,7 +95,8 @@ export function CartDrawer() {
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-cover"
+                        quality={90}
+                        className="object-contain p-1"
                         sizes="80px"
                       />
                     </Link>
@@ -186,7 +187,8 @@ export function CartDrawer() {
                               src={p.images.primary}
                               alt=""
                               fill
-                              className="object-cover"
+                              quality={90}
+                              className="object-contain p-0.5"
                               sizes="56px"
                             />
                           ) : null}

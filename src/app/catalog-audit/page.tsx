@@ -156,7 +156,8 @@ export default function CatalogAuditPage() {
                             src={url}
                             alt={`${product.name} ${slot}`}
                             fill
-                            className="object-cover"
+                            quality={90}
+                            className="object-contain p-1.5"
                             sizes="140px"
                           />
                         ) : (

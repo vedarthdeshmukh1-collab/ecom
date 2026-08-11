@@ -102,7 +102,7 @@ export default async function ProductPage({
                   alt={`${owned.name} — ${slot}`}
                   fill
                   priority={slot === "primary"}
-                  className="object-cover transition duration-500 hover:scale-105"
+                  className="object-contain p-4 transition duration-500 hover:scale-[1.02] md:p-6"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
