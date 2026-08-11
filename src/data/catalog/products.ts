@@ -11,7 +11,8 @@ function imagesFor(productId: string): ProductImages {
     primary: `${base}/primary.webp`,
     secondary: `${base}/secondary.webp`,
     side: `${base}/side.webp`,
-    rear: `${base}/rear.webp`,
+    // Mockup set has no rear shot — leave unavailable rather than reuse another angle/product
+    rear: null,
     top: `${base}/top.webp`,
     sole: `${base}/sole.webp`,
     lifestyle: `${base}/lifestyle.webp`,
