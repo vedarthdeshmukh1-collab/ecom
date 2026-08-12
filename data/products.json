@@ -1,0 +1,97 @@
+[
+  {
+    "id": "velocity-one",
+    "name": "Velocity One",
+    "brand": "SOLEVA",
+    "category": "running",
+    "color": "White / Black",
+    "price": 4999,
+    "badge": "BEST SELLER",
+    "images": {
+      "primary": "/products/velocity-one/primary.webp",
+      "secondary": "/products/velocity-one/side.webp",
+      "side": "/products/velocity-one/side.webp",
+      "rear": "/products/velocity-one/rear.webp",
+      "top": "/products/velocity-one/top.webp",
+      "sole": "/products/velocity-one/sole.webp",
+      "lifestyle": "/products/velocity-one/lifestyle.webp"
+    },
+    "image_status": "REFERENCE_CROPS_INCLUDED__REPLACE_WITH_FINAL_PHOTOROOM_ASSETS"
+  },
+  {
+    "id": "cloudstep",
+    "name": "CloudStep",
+    "brand": "SOLEVA",
+    "category": "walking",
+    "color": "Grey",
+    "price": 3999,
+    "badge": "ALL DAY COMFORT",
+    "images": {
+      "primary": "/products/cloudstep/primary.webp",
+      "secondary": "/products/cloudstep/side.webp",
+      "side": "/products/cloudstep/side.webp",
+      "rear": "/products/cloudstep/rear.webp",
+      "top": "/products/cloudstep/top.webp",
+      "sole": "/products/cloudstep/sole.webp",
+      "lifestyle": "/products/cloudstep/lifestyle.webp"
+    },
+    "image_status": "REFERENCE_CROPS_INCLUDED__REPLACE_WITH_FINAL_PHOTOROOM_ASSETS"
+  },
+  {
+    "id": "urban-x",
+    "name": "Urban X",
+    "brand": "SOLEVA",
+    "category": "lifestyle",
+    "color": "Black",
+    "price": 4499,
+    "badge": "NEW",
+    "images": {
+      "primary": "/products/urban-x/primary.webp",
+      "secondary": "/products/urban-x/side.webp",
+      "side": "/products/urban-x/side.webp",
+      "rear": "/products/urban-x/rear.webp",
+      "top": "/products/urban-x/top.webp",
+      "sole": "/products/urban-x/sole.webp",
+      "lifestyle": "/products/urban-x/lifestyle.webp"
+    },
+    "image_status": "REFERENCE_CROPS_INCLUDED__REPLACE_WITH_FINAL_PHOTOROOM_ASSETS"
+  },
+  {
+    "id": "apex-pro",
+    "name": "Apex Pro",
+    "brand": "SOLEVA",
+    "category": "training",
+    "color": "White / Red",
+    "price": 5499,
+    "badge": "PERFORMANCE",
+    "images": {
+      "primary": "/products/apex-pro/primary.webp",
+      "secondary": "/products/apex-pro/side.webp",
+      "side": "/products/apex-pro/side.webp",
+      "rear": "/products/apex-pro/rear.webp",
+      "top": "/products/apex-pro/top.webp",
+      "sole": "/products/apex-pro/sole.webp",
+      "lifestyle": "/products/apex-pro/lifestyle.webp"
+    },
+    "image_status": "REFERENCE_CROPS_INCLUDED__REPLACE_WITH_FINAL_PHOTOROOM_ASSETS"
+  },
+  {
+    "id": "trailcore",
+    "name": "TrailCore",
+    "brand": "SOLEVA",
+    "category": "trail",
+    "color": "Olive / Black",
+    "price": 6499,
+    "badge": "OUTDOOR",
+    "images": {
+      "primary": "/products/trailcore/primary.webp",
+      "secondary": "/products/trailcore/side.webp",
+      "side": "/products/trailcore/side.webp",
+      "rear": "/products/trailcore/rear.webp",
+      "top": "/products/trailcore/top.webp",
+      "sole": "/products/trailcore/sole.webp",
+      "lifestyle": "/products/trailcore/lifestyle.webp"
+    },
+    "image_status": "REFERENCE_CROPS_INCLUDED__REPLACE_WITH_FINAL_PHOTOROOM_ASSETS"
+  }
+]
