@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Space_Grotesk } from "next/font/google";
+import { Manrope, Sora } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
 import { Header } from "@/components/Header";
@@ -8,13 +8,13 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
-const body = Outfit({
+const body = Manrope({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
-const display = Space_Grotesk({
+const display = Sora({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
@@ -23,23 +23,23 @@ const display = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://soleva.example.com"),
   title: {
-    default: "SOLEVA — Performance Meets Everyday Style",
+    default: "SOLEVA — Comfort for every day",
     template: "%s · SOLEVA",
   },
   description:
-    "Premium footwear engineered for comfort, movement, and everyday performance. Shop running, training, basketball, and lifestyle sneakers.",
+    "Quietly comfortable footwear for walking, training, and everyday wear. Soft steps, honest materials, made to move with you.",
   openGraph: {
-    title: "SOLEVA — Performance Meets Everyday Style",
+    title: "SOLEVA — Comfort for every day",
     description:
-      "Premium footwear engineered for comfort, movement, and everyday performance.",
+      "Quietly comfortable footwear for walking, training, and everyday wear.",
     type: "website",
     siteName: "SOLEVA",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SOLEVA — Performance Meets Everyday Style",
+    title: "SOLEVA — Comfort for every day",
     description:
-      "Premium footwear engineered for comfort, movement, and everyday performance.",
+      "Quietly comfortable footwear for walking, training, and everyday wear.",
   },
   robots: {
     index: true,

@@ -37,15 +37,15 @@ export function ProductCard({
 
   return (
     <article className="group relative">
-      <div className="relative aspect-square overflow-hidden rounded-2xl bg-mist">
+      <div className="relative aspect-square overflow-hidden rounded-xl bg-mist">
         <Link href={`/product/${product.slug}`} className="block h-full">
           <ProductImage
             src={primary}
             alt={product.name}
             fill
             priority={priority}
-            className={`object-contain p-3 transition duration-500 md:p-4 ${
-              secondary ? "group-hover:opacity-0" : "group-hover:scale-105"
+            className={`object-contain p-3 transition duration-500 md:p-5 ${
+              secondary ? "group-hover:opacity-0" : "group-hover:scale-[1.03]"
             }`}
             sizes="(max-width: 768px) 50vw, 25vw"
           />
@@ -54,7 +54,7 @@ export function ProductCard({
               src={secondary}
               alt=""
               fill
-              className="object-contain p-3 opacity-0 transition duration-500 group-hover:scale-105 group-hover:opacity-100 md:p-4"
+              className="object-contain p-3 opacity-0 transition duration-500 group-hover:scale-[1.03] group-hover:opacity-100 md:p-5"
               sizes="(max-width: 768px) 50vw, 25vw"
               showUnavailable={false}
             />
@@ -63,17 +63,17 @@ export function ProductCard({
 
         <div className="absolute left-3 top-3 flex flex-col gap-1.5">
           {product.badge && (
-            <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
+            <span className="rounded-md bg-ink/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
               {product.badge}
             </span>
           )}
           {!product.badge && product.new && (
-            <span className="rounded-full bg-ink px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
+            <span className="rounded-md bg-ink/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
               New
             </span>
           )}
           {discount && (
-            <span className="rounded-full bg-accent px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
+            <span className="rounded-md bg-accent px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-paper">
               -{discount}%
             </span>
           )}
@@ -82,21 +82,21 @@ export function ProductCard({
         <button
           type="button"
           onClick={() => toggle(product.id)}
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full bg-paper/95 text-sm shadow-sm transition hover:scale-105"
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-md bg-paper/95 text-sm transition hover:bg-paper"
           aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
         >
           {wished ? "♥" : "♡"}
         </button>
 
         <div className="absolute inset-x-3 bottom-3 translate-y-2 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-          <div className="rounded-2xl bg-paper/95 p-2 shadow-lg backdrop-blur">
+          <div className="rounded-xl bg-paper/95 p-2 shadow-sm backdrop-blur">
             <div className="mb-2 flex flex-wrap gap-1">
               {product.sizes.slice(0, 6).map((size) => (
                 <button
                   key={size}
                   type="button"
                   onClick={() => setQuickSize(size)}
-                  className={`min-w-8 rounded-full px-2 py-1 text-[11px] font-medium transition ${
+                  className={`min-w-8 rounded-md px-2 py-1 text-[11px] font-medium transition ${
                     quickSize === size
                       ? "bg-ink text-paper"
                       : "bg-mist text-ink hover:bg-stone"
@@ -109,13 +109,13 @@ export function ProductCard({
             <div className="grid grid-cols-2 gap-1.5">
               <Link
                 href={`/product/${product.slug}`}
-                className="rounded-full border border-line py-2 text-center text-[11px] font-semibold"
+                className="rounded-md border border-line py-2 text-center text-[11px] font-semibold"
               >
                 Quick view
               </Link>
               <button
                 type="button"
-                className="rounded-full bg-accent py-2 text-[11px] font-semibold text-paper transition hover:bg-accent-deep"
+                className="rounded-md bg-accent py-2 text-[11px] font-semibold text-paper transition hover:bg-accent-deep"
                 onClick={() => {
                   const size = quickSize ?? product.sizes[0]!;
                   addItem(product, product.colors[0]!.name, size, 1);
@@ -132,7 +132,7 @@ export function ProductCard({
       <Link href={`/product/${product.slug}`} className="mt-3 block">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h3 className="font-display text-base font-semibold tracking-tight md:text-lg">
+            <h3 className="font-display text-base font-medium tracking-tight md:text-lg">
               {product.name}
             </h3>
             <p className="mt-0.5 text-xs text-muted">

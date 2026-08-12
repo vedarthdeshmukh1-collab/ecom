@@ -67,7 +67,7 @@ export function Header() {
 
           <Link
             href="/"
-            className="font-display absolute left-1/2 -translate-x-1/2 text-2xl font-bold tracking-[0.14em] md:text-[1.75rem]"
+            className="font-display absolute left-1/2 -translate-x-1/2 text-xl font-semibold tracking-[0.2em] md:text-2xl"
             onClick={() => setMenuOpen(false)}
           >
             SOLEVA
@@ -90,7 +90,7 @@ export function Header() {
             >
               Cart
               <span
-                className={`ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-full px-1 text-[11px] font-semibold ${
+                className={`ml-1.5 inline-flex h-5 min-w-5 items-center justify-center rounded-md px-1 text-[11px] font-semibold ${
                   solid ? "bg-accent text-paper" : "bg-paper/20 text-paper"
                 }`}
               >
