@@ -2,13 +2,66 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProductCard } from "@/components/ProductCard";
 import {
-  categoryMeta,
   getBestSellers,
   getFeaturedProducts,
-  sports,
+  getProductById,
   technologies,
 } from "@/data/products";
 import { reviews } from "@/data/products";
+
+const categoryTiles = [
+  {
+    label: "New Arrivals",
+    href: "/shop?sort=featured",
+    productId: "urban-x",
+    bg: "bg-tile-1",
+  },
+  {
+    label: "Mens",
+    href: "/collections/men",
+    productId: "velocity-one",
+    bg: "bg-tile-2",
+  },
+  {
+    label: "Womens",
+    href: "/collections/women",
+    productId: "cloudstep",
+    bg: "bg-tile-3",
+  },
+  {
+    label: "Best Sellers",
+    href: "/shop?sort=featured",
+    productId: "apex-pro",
+    bg: "bg-tile-4",
+  },
+] as const;
+
+const promoBands = [
+  {
+    title: "All-day essentials",
+    hrefMen: "/collections/men",
+    hrefWomen: "/collections/women",
+    image:
+      "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1400&q=80",
+    alt: "Everyday sneakers ready for travel days",
+  },
+  {
+    title: "New arrivals",
+    hrefMen: "/shop",
+    hrefWomen: "/shop",
+    image:
+      "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=1400&q=80",
+    alt: "Fresh SOLEVA colorways in soft light",
+  },
+  {
+    title: "Built for miles",
+    hrefMen: "/collections/running",
+    hrefWomen: "/collections/walking",
+    image:
+      "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1400&q=80",
+    alt: "Comfortable footwear for outdoor miles",
+  },
+] as const;
 
 export default function HomePage() {
   const arrivals = getFeaturedProducts().slice(0, 4);
@@ -16,233 +69,205 @@ export default function HomePage() {
     ? getBestSellers().slice(0, 4)
     : getFeaturedProducts().slice(0, 4);
   const homeReviews = reviews.slice(0, 3);
+  const heroProduct = getProductById("velocity-one");
 
   return (
     <>
-      <section className="relative min-h-[100svh] overflow-hidden hero-wash text-paper">
-        <Image
-          src="https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=2200&q=80"
-          alt="Soft morning walk in comfortable sneakers"
-          fill
-          priority
-          className="object-cover opacity-55 animate-fade"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/25 to-ink/10" />
-        <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-5 pb-16 pt-28 md:justify-end md:px-8 md:pb-24">
-          <p className="font-display animate-rise text-5xl font-semibold tracking-[0.18em] md:text-7xl lg:text-8xl">
-            SOLEVA
-          </p>
-          <h1 className="animate-rise-delay-1 mt-5 max-w-xl font-display text-3xl font-medium leading-[1.15] tracking-tight md:text-5xl">
-            Soft steps. All day.
-          </h1>
-          <p className="animate-rise-delay-2 mt-4 max-w-md text-base leading-relaxed text-paper/80 md:text-lg">
-            Footwear that feels easy the moment you put it on — for walks,
-            workdays, and weekends in between.
-          </p>
-          <div className="animate-rise-delay-3 mt-8 flex flex-wrap gap-3">
-            <Link
-              href="/collections/men"
-              className="btn-primary bg-paper text-ink hover:bg-paper hover:text-ink"
-            >
-              Shop Men
-            </Link>
-            <Link href="/collections/women" className="btn-secondary">
-              Shop Women
-            </Link>
+      {/* Split lifestyle + product hero */}
+      <section className="px-3 pt-3 md:px-5 md:pt-5">
+        <div className="relative mx-auto grid min-h-[78svh] max-w-[1400px] overflow-hidden rounded-[1.75rem] bg-ink md:min-h-[84svh] md:grid-cols-2">
+          <div className="relative min-h-[42svh] md:min-h-full">
+            <Image
+              src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1600&q=80"
+              alt="Comfortable everyday style in the city"
+              fill
+              priority
+              className="object-cover animate-fade"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+          </div>
+          <div className="relative min-h-[42svh] md:min-h-full">
+            <Image
+              src={
+                heroProduct?.images.lifestyle ??
+                "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1600&q=80"
+              }
+              alt="SOLEVA Velocity One detail"
+              fill
+              priority
+              className="object-cover animate-fade"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" />
+          </div>
+
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 z-10 hidden -translate-x-1/2 -translate-y-1/2 md:block"
+            aria-hidden
+          >
+            <p className="rotate-180 font-display text-[0.7rem] font-medium uppercase tracking-[0.35em] text-paper [writing-mode:vertical-rl]">
+              soleva · soft steps
+            </p>
+          </div>
+
+          <div className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-5 p-6 text-paper md:inset-x-auto md:right-0 md:bottom-0 md:max-w-md md:items-start md:p-10">
+            <p className="animate-rise font-display text-4xl font-medium leading-[1.05] tracking-tight md:text-5xl">
+              Soft steps.
+              <br />
+              All day.
+            </p>
+            <div className="animate-rise-delay-1 flex flex-wrap gap-2.5">
+              <Link href="/collections/men" className="btn-primary">
+                Shop Men
+              </Link>
+              <Link href="/collections/women" className="btn-primary">
+                Shop Women
+              </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
-            Start here
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-4xl">
-            Find your everyday pair
-          </h2>
+      {/* Colored category tiles with product shots */}
+      <section className="mx-auto max-w-[1400px] px-3 py-4 md:px-5 md:py-6">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+          {categoryTiles.map((tile) => {
+            const product = getProductById(tile.productId);
+            return (
+              <Link
+                key={tile.label}
+                href={tile.href}
+                className={`group relative aspect-[4/5] overflow-hidden rounded-[1.5rem] ${tile.bg}`}
+              >
+                {product?.images.primary && (
+                  <Image
+                    src={product.images.primary}
+                    alt={product.name}
+                    fill
+                    className="object-contain p-6 transition duration-700 group-hover:scale-105 md:p-8"
+                    sizes="(max-width: 768px) 50vw, 25vw"
+                  />
+                )}
+                <span className="absolute inset-x-0 top-1/2 z-10 mx-auto w-max -translate-y-1/2 rounded-full bg-paper/90 px-4 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-ink shadow-sm backdrop-blur">
+                  {tile.label}
+                </span>
+              </Link>
+            );
+          })}
         </div>
-        <div className="mt-10 grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
-          {categoryMeta.map((cat) => (
-            <Link
-              key={cat.name}
-              href={cat.href}
-              className="group relative min-h-[220px] overflow-hidden rounded-xl md:min-h-[280px]"
-            >
-              <Image
-                src={cat.image}
-                alt={cat.name}
-                fill
-                className="object-cover transition duration-700 group-hover:scale-[1.03]"
-                sizes="(max-width: 768px) 50vw, 25vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
-              <span className="absolute bottom-4 left-4 font-display text-xl font-medium text-paper md:text-2xl">
-                {cat.name}
-              </span>
-            </Link>
+      </section>
+
+      {/* Best sellers */}
+      <section className="mx-auto max-w-[1400px] px-4 py-14 md:px-6 md:py-20">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="border-b-2 border-ink pb-1 font-display text-3xl font-medium tracking-tight md:text-4xl">
+            Best Sellers
+          </h2>
+          <Link
+            href="/shop?sort=featured"
+            className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted underline-offset-4 hover:text-ink hover:underline"
+          >
+            Shop all
+          </Link>
+        </div>
+        <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
+          {bestsellers.map((product, i) => (
+            <ProductCard key={product.id} product={product} priority={i < 2} />
           ))}
         </div>
       </section>
 
-      <section className="bg-mist/70 py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
-                New arrivals
-              </p>
-              <h2 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-4xl">
-                Fresh underfoot
-              </h2>
-            </div>
-            <Link
-              href="/shop"
-              className="text-sm font-semibold text-accent underline-offset-4 hover:underline"
+      {/* 3 lifestyle promo bands */}
+      <section className="mx-auto max-w-[1400px] px-3 pb-4 md:px-5">
+        <div className="grid gap-3 md:grid-cols-3 md:gap-4">
+          {promoBands.map((band) => (
+            <div
+              key={band.title}
+              className="group relative min-h-[420px] overflow-hidden rounded-[1.5rem] md:min-h-[520px]"
             >
-              View all
-            </Link>
-          </div>
-          <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
-            {arrivals.map((product, i) => (
-              <ProductCard key={product.id} product={product} priority={i < 2} />
-            ))}
-          </div>
+              <Image
+                src={band.image}
+                alt={band.alt}
+                fill
+                className="object-cover transition duration-700 group-hover:scale-[1.03]"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-ink/25" />
+              <div className="absolute inset-0 flex flex-col items-center justify-between p-6 text-center text-paper md:p-8">
+                <span className="h-4" />
+                <h3 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
+                  {band.title}
+                </h3>
+                <div className="flex flex-wrap justify-center gap-2">
+                  <Link href={band.hrefMen} className="btn-secondary">
+                    Shop Men
+                  </Link>
+                  <Link href={band.hrefWomen} className="btn-secondary">
+                    Shop Women
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      <section className="relative overflow-hidden py-20 text-paper md:py-28">
-        <Image
-          src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=2200&q=80"
-          alt="Easy outdoor miles in SOLEVA footwear"
-          fill
-          className="object-cover"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-ink/55" />
-        <div className="relative z-10 mx-auto max-w-7xl px-5 md:px-8">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-paper/70">
-            Made for miles
-          </p>
-          <h2 className="mt-4 max-w-2xl font-display text-3xl font-medium tracking-tight md:text-5xl">
-            Light enough to forget. Steady enough to trust.
+      {/* New arrivals */}
+      <section className="mx-auto max-w-[1400px] px-4 py-14 md:px-6 md:py-20">
+        <div className="flex items-end justify-between gap-4">
+          <h2 className="border-b-2 border-ink pb-1 font-display text-3xl font-medium tracking-tight md:text-4xl">
+            New Arrivals
           </h2>
-          <p className="mt-5 max-w-lg text-paper/80">
-            Soft cushioning and breathable uppers for days that stretch longer
-            than planned.
-          </p>
-          <Link href="/collections/running" className="btn-accent mt-8 inline-flex">
-            Shop running
-          </Link>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
-              Best sellers
-            </p>
-            <h2 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-4xl">
-              Most loved
-            </h2>
-          </div>
           <Link
-            href="/shop?sort=featured"
-            className="text-sm font-semibold text-accent underline-offset-4 hover:underline"
+            href="/shop"
+            className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted underline-offset-4 hover:text-ink hover:underline"
           >
-            Shop bestsellers
+            View all
           </Link>
         </div>
-        <div className="mt-12 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
-          {bestsellers.map((product) => (
+        <div className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-4 md:gap-x-5">
+          {arrivals.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
 
-      <section className="bg-mist/70 py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
-            Shop by movement
-          </h2>
-          <div className="mt-10 flex gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-4 md:overflow-visible lg:grid-cols-7">
-            {sports.map((sport) => (
-              <Link
-                key={sport.name}
-                href={sport.href}
-                className="group relative min-w-[140px] flex-shrink-0 overflow-hidden rounded-xl md:min-w-0"
-              >
-                <div className="relative aspect-[3/4]">
-                  <Image
-                    src={sport.image}
-                    alt={sport.name}
-                    fill
-                    className="object-cover transition duration-500 group-hover:scale-[1.03]"
-                    sizes="160px"
-                  />
-                  <div className="absolute inset-0 bg-ink/30 transition group-hover:bg-ink/20" />
-                  <span className="absolute inset-x-0 bottom-3 text-center text-sm font-semibold text-paper">
-                    {sport.name}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8 md:py-24">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-muted">
-            Why it feels better
-          </p>
-          <h2 className="mt-3 font-display text-3xl font-medium tracking-tight md:text-4xl">
-            Comfort built in
-          </h2>
-        </div>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {technologies.map((tech, i) => (
-            <div key={tech.title} className="border-t border-line pt-6">
-              <span className="text-xs font-semibold tracking-[0.18em] text-accent">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-3 font-display text-xl font-medium">{tech.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted">{tech.body}</p>
+      {/* Feature story cards */}
+      <section className="bg-mist/80 py-16 md:py-24">
+        <div className="mx-auto grid max-w-[1400px] gap-8 px-4 md:grid-cols-3 md:gap-10 md:px-6">
+          {technologies.slice(0, 3).map((tech) => (
+            <div key={tech.title} className="rounded-2xl bg-paper p-8 md:p-10">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-muted">
+                {tech.title}
+              </p>
+              <p className="mt-4 text-base leading-relaxed text-ink-soft">
+                {tech.body}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="border-t border-line py-16 md:py-24">
-        <div className="mx-auto max-w-7xl px-5 md:px-8">
-          <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
-            From real wearers
-          </h2>
-          <div className="mt-10 grid gap-8 md:grid-cols-3">
-            {homeReviews.map((review) => (
-              <figure key={review.id} className="border-t border-line pt-6">
-                <div className="flex items-center gap-2 text-sm text-accent">
-                  {"★".repeat(review.rating)}
-                  {review.verified && (
-                    <span className="text-[10px] font-semibold uppercase tracking-wide text-muted">
-                      Verified
-                    </span>
-                  )}
-                </div>
-                <blockquote className="mt-3 font-display text-lg font-medium tracking-tight">
-                  {review.title}
-                </blockquote>
-                <p className="mt-2 text-sm leading-relaxed text-muted">
-                  {review.body}
-                </p>
-                <figcaption className="mt-4 text-xs font-medium text-ink">
-                  {review.name}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+      {/* Reviews */}
+      <section className="mx-auto max-w-[1400px] px-4 py-16 md:px-6 md:py-24">
+        <h2 className="font-display text-3xl font-medium tracking-tight md:text-4xl">
+          Wearer love
+        </h2>
+        <div className="mt-10 grid gap-6 md:grid-cols-3">
+          {homeReviews.map((review) => (
+            <figure key={review.id} className="rounded-2xl bg-mist/70 p-7">
+              <p className="text-sm text-ink">{"★".repeat(review.rating)}</p>
+              <blockquote className="mt-3 font-display text-xl font-medium tracking-tight">
+                {review.title}
+              </blockquote>
+              <p className="mt-2 text-sm leading-relaxed text-muted">
+                {review.body}
+              </p>
+              <figcaption className="mt-5 text-xs font-bold uppercase tracking-[0.12em] text-ink">
+                {review.name}
+              </figcaption>
+            </figure>
+          ))}
         </div>
       </section>
     </>

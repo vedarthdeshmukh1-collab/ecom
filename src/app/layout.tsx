@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Sora } from "next/font/google";
+import { DM_Sans, Fraunces } from "next/font/google";
 import { CartProvider } from "@/lib/cart-context";
 import { WishlistProvider } from "@/lib/wishlist-context";
 import { Header } from "@/components/Header";
@@ -8,13 +8,13 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { MobileNav } from "@/components/MobileNav";
 import "./globals.css";
 
-const body = Manrope({
+const body = DM_Sans({
   variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
-const display = Sora({
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
   display: "swap",
@@ -23,23 +23,23 @@ const display = Sora({
 export const metadata: Metadata = {
   metadataBase: new URL("https://soleva.example.com"),
   title: {
-    default: "SOLEVA — Comfort for every day",
+    default: "SOLEVA — Soft steps. All day.",
     template: "%s · SOLEVA",
   },
   description:
-    "Quietly comfortable footwear for walking, training, and everyday wear. Soft steps, honest materials, made to move with you.",
+    "Comfortable everyday footwear for walking, training, and city life. Soft cushioning, breathable uppers, easy style.",
   openGraph: {
-    title: "SOLEVA — Comfort for every day",
+    title: "SOLEVA — Soft steps. All day.",
     description:
-      "Quietly comfortable footwear for walking, training, and everyday wear.",
+      "Comfortable everyday footwear for walking, training, and city life.",
     type: "website",
     siteName: "SOLEVA",
   },
   twitter: {
     card: "summary_large_image",
-    title: "SOLEVA — Comfort for every day",
+    title: "SOLEVA — Soft steps. All day.",
     description:
-      "Quietly comfortable footwear for walking, training, and everyday wear.",
+      "Comfortable everyday footwear for walking, training, and city life.",
   },
   robots: {
     index: true,
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${body.variable} ${display.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-paper text-ink-soft">
+      <body className="flex min-h-full flex-col bg-paper text-ink-soft">
         <CartProvider>
           <WishlistProvider>
             <Header />
