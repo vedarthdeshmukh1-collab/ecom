@@ -1,5 +1,6 @@
 import type { Product, ProductVariant } from '@/brands/types'
 import { Button } from '@/components/ui/Button'
+import { useBrand } from '@/engine/BrandProvider'
 import { useCart } from '@/engine/CartProvider'
 
 export function AddToCartButton({
@@ -12,6 +13,7 @@ export function AddToCartButton({
   quantity: number
 }) {
   const { add } = useCart()
+  const brand = useBrand()
   const available = variant.inStock
 
   return (
@@ -20,7 +22,7 @@ export function AddToCartButton({
       disabled={!available}
       onClick={() => add(product, variant, quantity)}
     >
-      {available ? 'Add to cabinet' : 'Notify me'}
+      {available ? brand.copy.addToCart : 'Notify me'}
     </Button>
   )
 }

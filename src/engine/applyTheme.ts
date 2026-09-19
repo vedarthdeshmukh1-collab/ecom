@@ -11,6 +11,12 @@ export function applyTheme(brand: Brand) {
   root.style.setProperty('--color-inverse', brand.colors.inverse)
   root.style.setProperty('--font-display', brand.typography.display)
   root.style.setProperty('--font-body', brand.typography.body)
+  root.style.setProperty('--font-ui', brand.typography.ui)
+  root.style.setProperty('--radius-sm', brand.shape.radiusSm)
+  root.style.setProperty('--radius-md', brand.shape.radiusMd)
+  root.style.setProperty('--radius-full', brand.shape.radiusFull)
+  root.style.setProperty('--border-width', brand.shape.borderWidth)
+  root.style.setProperty('--shadow', brand.shape.shadow)
   document.title = `${brand.name} — ${brand.tagline}`
 
   const existing = document.getElementById('brand-fonts')

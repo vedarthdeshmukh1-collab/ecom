@@ -1,54 +1,139 @@
-import { Link } from 'react-router-dom'
+import { Star } from 'lucide-react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import type { Product } from '@/brands/types'
-import { formatMoney } from '@/engine/format'
-import { BrandImage } from '@/media/BrandImage'
+import { Button } from '@/components/ui/Button'
+import { Image } from '@/components/system/Image'
+import { Heading } from '@/components/system/Heading'
 import { useBrand } from '@/engine/BrandProvider'
+import { useCart } from '@/engine/CartProvider'
+import { formatMoney } from '@/engine/format'
+import { aspectClass, cx, type ImageRatio } from '@/system/cx'
 
-export function ProductCard({ product }: { product: Product }) {
+export type ProductCardProps = {
+  product: Product
+  align?: 'left' | 'center'
+  ratio?: ImageRatio
+  showRating?: boolean
+  showQuickAdd?: boolean
+  showSwatches?: boolean
+  showBadge?: boolean
+  showCategory?: boolean
+}
+
+export function ProductCard({
+  product,
+  align = 'left',
+  ratio = 'portrait',
+  showRating = false,
+  showQuickAdd = false,
+  showSwatches = true,
+  showBadge = true,
+  showCategory = true,
+}: ProductCardProps) {
   const brand = useBrand()
-  const [hover, setHover] = useState(false)
+  const { add } = useCart()
+  const [activeSwatch, setActiveSwatch] = useState(
+    product.variants.find((v) => v.swatch)?.id ?? product.variants[0]?.id,
+  )
   const primary = product.images[0]
-  const secondary = product.images[1] ?? product.images[0]
+  const secondary = product.images[1]
+  const swatches = product.variants.filter((v) => v.swatch)
+  const selected = product.variants.find((v) => v.id === activeSwatch) ?? product.variants[0]
+  const price = selected?.price ?? product.price
+  const compare = selected?.compareAtPrice ?? (selected?.price ? undefined : product.compareAtPrice)
+  const image = product.images[selected?.imageIndex ?? 0] ?? primary
 
   return (
-    <article>
-      <Link
-        to={`/products/${product.slug}`}
-        className="group block"
-        onMouseEnter={() => setHover(true)}
-        onMouseLeave={() => setHover(false)}
-      >
-        <div className="relative aspect-[3/4] overflow-hidden bg-[var(--color-surface)]">
-          <BrandImage
-            src={hover ? secondary.src : primary.src}
-            alt={hover ? secondary.alt : primary.alt}
-            fallbackLabel={brand.logoText}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-          />
-          {product.badge && (
-            <span className="absolute top-3 left-3 text-[10px] tracking-[0.18em] uppercase text-[var(--color-inverse)] mix-blend-difference">
-              {product.badge}
-            </span>
+    <article className={cx('group', align === 'center' && 'text-center')}>
+      <div className="relative">
+        <Link to={`/products/${product.slug}`} className="block">
+          <div className={cx('relative overflow-hidden bg-[var(--color-surface)]', aspectClass(ratio))}>
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fallbackLabel={brand.logoText}
+              className="h-full w-full object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-editorial)] group-hover:scale-[1.03]"
+            />
+            {secondary && (
+              <img
+                src={secondary.src}
+                alt=""
+                className="absolute inset-0 hidden h-full w-full object-cover opacity-0 transition-opacity duration-[var(--duration-med)] ease-[var(--ease-editorial)] group-hover:opacity-100 md:block"
+              />
+            )}
+            {showBadge && product.badge && (
+              <span className="type-eyebrow absolute top-3 left-3 text-[var(--color-inverse)] mix-blend-difference">
+                {product.badge}
+              </span>
+            )}
+          </div>
+        </Link>
+        {showQuickAdd && selected && (
+          <div className="pointer-events-none absolute inset-x-3 bottom-3 hidden opacity-0 transition-opacity duration-[var(--duration-med)] group-hover:opacity-100 md:block">
+            <div className="pointer-events-auto">
+              <Button
+                size="sm"
+                className="w-full"
+                disabled={!selected.inStock}
+                onClick={() => add(product, selected, 1)}
+              >
+                {brand.copy.quickAdd}
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className={cx('mt-3', align === 'center' ? 'flex flex-col items-center' : '')}>
+        <div
+          className={cx(
+            'flex gap-3',
+            align === 'center' ? 'flex-col items-center' : 'items-baseline justify-between',
           )}
-        </div>
-        <div className="mt-3 flex items-baseline justify-between gap-3">
-          <h3 className="text-[13px] tracking-wide md:text-sm">{product.name}</h3>
-          <p className="shrink-0 text-[13px] tabular-nums">
-            {product.compareAtPrice ? (
+        >
+          <Link to={`/products/${product.slug}`}>
+            <Heading variant="product" className="hover:text-[var(--color-accent)]">
+              {product.name}
+            </Heading>
+          </Link>
+          <p className="type-price shrink-0">
+            {compare ? (
               <>
-                <span className="mr-2 text-[var(--color-muted)] line-through">
-                  {formatMoney(product.compareAtPrice)}
-                </span>
-                <span>{formatMoney(product.price)}</span>
+                <span className="mr-2 text-[var(--color-muted)] line-through">{formatMoney(compare)}</span>
+                <span>{formatMoney(price)}</span>
               </>
             ) : (
-              formatMoney(product.price)
+              formatMoney(price)
             )}
           </p>
         </div>
-        <p className="mt-1 text-[12px] text-[var(--color-muted)]">{product.category}</p>
-      </Link>
+        {showCategory && <p className="type-meta mt-1">{product.category}</p>}
+        {showRating && (
+          <p className="type-meta mt-1 flex items-center gap-1">
+            <Star size={11} fill="currentColor" className="text-[var(--color-accent)]" />
+            {product.rating.toFixed(1)}
+            <span>· {product.reviewCount}</span>
+          </p>
+        )}
+        {showSwatches && swatches.length > 0 && (
+          <div className={cx('mt-2 flex gap-1.5', align === 'center' && 'justify-center')}>
+            {swatches.map((variant) => (
+              <button
+                key={variant.id}
+                type="button"
+                aria-label={variant.label}
+                onClick={() => setActiveSwatch(variant.id)}
+                className={cx(
+                  'h-3 w-3 border',
+                  variant.id === activeSwatch ? 'border-[var(--color-ink)]' : 'border-transparent',
+                )}
+                style={{ background: variant.swatch, borderRadius: 'var(--radius-full)' }}
+              />
+            ))}
+          </div>
+        )}
+      </div>
     </article>
   )
 }

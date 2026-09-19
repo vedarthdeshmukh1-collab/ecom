@@ -1,32 +1,98 @@
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Container } from '@/components/system/Container'
+import { Heading } from '@/components/system/Heading'
+import { TextLink } from '@/components/system/Link'
+import { Button } from '@/components/ui/Button'
 import { useBrand } from '@/engine/BrandProvider'
+import { cx, typeClass } from '@/system/cx'
 
 export function Footer() {
   const brand = useBrand()
+  const [sent, setSent] = useState(false)
+  const newsletter = brand.footer.newsletter
+
   return (
     <footer className="border-t border-[var(--color-line)]">
-      <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-16 md:grid-cols-12 md:px-8 md:py-20 lg:px-12">
-        <div className="md:col-span-5">
-          <p className="font-display text-3xl tracking-[0.28em]">{brand.logoText}</p>
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-[var(--color-muted)]">{brand.footer.blurb}</p>
+      {newsletter && (
+        <div className="border-b border-[var(--color-line)]">
+          <Container className="grid gap-8 py-12 md:grid-cols-2 md:items-end md:py-16">
+            <div>
+              <Heading variant="h2">{newsletter.heading}</Heading>
+              <Heading variant="body-sm" as="p" className="mt-3 max-w-md">
+                {newsletter.body}
+              </Heading>
+            </div>
+            {sent ? (
+              <p className="type-body">You are on the list. We write rarely.</p>
+            ) : (
+              <form
+                className="flex flex-col gap-3 sm:flex-row"
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  setSent(true)
+                }}
+              >
+                <input
+                  required
+                  type="email"
+                  placeholder={newsletter.placeholder}
+                  className="type-body h-12 flex-1 border border-[var(--color-line)] bg-transparent px-4 outline-none placeholder:text-[var(--color-muted)]"
+                />
+                <Button type="submit">{newsletter.ctaLabel}</Button>
+              </form>
+            )}
+          </Container>
+        </div>
+      )}
+
+      <Container className="grid gap-12 py-16 md:grid-cols-12 md:py-20">
+        <div className="md:col-span-4">
+          <p className={typeClass.logo}>{brand.logoText}</p>
+          <p className="type-body-sm mt-5 max-w-sm">{brand.footer.blurb}</p>
+          {brand.footer.social.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-4">
+              {brand.footer.social.map((item) => (
+                <li key={item.label}>
+                  <TextLink href={item.href} external className={typeClass.nav}>
+                    {item.label}
+                  </TextLink>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         {brand.footer.columns.map((col) => (
-          <div key={col.title} className="md:col-span-2">
-            <p className="text-[11px] tracking-[0.2em] uppercase text-[var(--color-muted)]">{col.title}</p>
+          <div key={col.title} className="md:col-span-2 md:col-start-auto">
+            <p className={typeClass.eyebrow}>{col.title}</p>
             <ul className="mt-4 space-y-2">
               {col.links.map((link) => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm hover:text-[var(--color-accent)]">
-                    {link.label}
-                  </Link>
+                  <TextLink href={link.href}>{link.label}</TextLink>
                 </li>
               ))}
             </ul>
           </div>
         ))}
-      </div>
-      <div className="border-t border-[var(--color-line)] px-4 py-4 text-center text-[11px] tracking-[0.12em] text-[var(--color-muted)] md:px-8">
-        {brand.footer.copyright}
+      </Container>
+
+      <div className="border-t border-[var(--color-line)]">
+        <Container className="flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between">
+          <p className={typeClass.meta}>{brand.footer.copyright}</p>
+          <ul className="flex flex-wrap gap-4">
+            {brand.footer.legal.map((link) => (
+              <li key={link.label}>
+                <TextLink href={link.href} className={typeClass.meta}>
+                  {link.label}
+                </TextLink>
+              </li>
+            ))}
+          </ul>
+          {brand.footer.payments.length > 0 && (
+            <p className={cx(typeClass.meta, 'tracking-[0.12em] uppercase')}>
+              {brand.footer.payments.join(' · ')}
+            </p>
+          )}
+        </Container>
       </div>
     </footer>
   )

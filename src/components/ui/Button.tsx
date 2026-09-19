@@ -1,25 +1,46 @@
 import { Link } from 'react-router-dom'
 import type { ButtonHTMLAttributes, ReactNode } from 'react'
+import { cx, typeClass } from '@/system/cx'
 
 type Variant = 'solid' | 'ghost' | 'underline'
+type Size = 'md' | 'sm'
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant
+  size?: Size
   href?: string
   children: ReactNode
 }
 
-const styles: Record<Variant, string> = {
+const variants: Record<Variant, string> = {
   solid:
-    'inline-flex items-center justify-center bg-[var(--color-ink)] px-6 py-3 text-[11px] font-medium tracking-[0.18em] uppercase text-[var(--color-inverse)] transition-opacity hover:opacity-85',
+    'bg-[var(--color-ink)] text-[var(--color-inverse)] hover:opacity-85',
   ghost:
-    'inline-flex items-center justify-center border border-[var(--color-ink)] px-6 py-3 text-[11px] font-medium tracking-[0.18em] uppercase text-[var(--color-ink)] transition-colors hover:bg-[var(--color-ink)] hover:text-[var(--color-inverse)]',
-  underline:
-    'inline-flex items-center gap-2 text-[12px] font-medium tracking-[0.16em] uppercase text-[var(--color-ink)] underline-offset-8 hover:underline',
+    'border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-inverse)]',
+  underline: 'underline-offset-8 hover:underline px-0 py-0',
 }
 
-export function Button({ variant = 'solid', href, className = '', children, onClick, ...rest }: Props) {
-  const cls = `${styles[variant]} ${className}`
+const sizes: Record<Size, string> = {
+  md: 'px-6 py-3',
+  sm: 'px-4 py-2',
+}
+
+export function Button({
+  variant = 'solid',
+  size = 'md',
+  href,
+  className = '',
+  children,
+  onClick,
+  ...rest
+}: Props) {
+  const cls = cx(
+    'inline-flex items-center justify-center transition-[opacity,color,background-color] duration-[var(--duration-fast)] ease-[var(--ease-editorial)]',
+    typeClass.button,
+    variant !== 'underline' && sizes[size],
+    variants[variant],
+    className,
+  )
   if (href) {
     return (
       <Link to={href} className={cls} onClick={onClick as never}>

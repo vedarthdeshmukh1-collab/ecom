@@ -18,20 +18,16 @@ export function Hero({ section }: { section: HeroSection }) {
           className="absolute inset-0 h-full w-full object-cover object-[center_30%]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-ink)]/55 via-[var(--color-ink)]/15 to-transparent" />
-        <div className="relative mx-auto flex min-h-[78vh] max-w-[1440px] flex-col justify-end px-4 pb-12 md:min-h-[88vh] md:px-8 md:pb-20 lg:px-12">
+          <div className="relative mx-auto flex min-h-[78vh] max-w-[var(--container-max)] flex-col justify-end px-[var(--gutter)] pb-12 md:min-h-[88vh] md:pb-20">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             className="max-w-xl text-[var(--color-inverse)]"
           >
-            {section.eyebrow && (
-              <p className="text-[11px] tracking-[0.28em] uppercase">{section.eyebrow}</p>
-            )}
-            <h1 className="font-display mt-3 text-4xl leading-[1.05] md:text-6xl">{section.heading}</h1>
-            <p className="mt-5 max-w-md text-sm leading-relaxed text-[var(--color-inverse)]/85 md:text-[15px]">
-              {section.subheading}
-            </p>
+            {section.eyebrow && <p className="type-eyebrow text-[var(--color-inverse)]">{section.eyebrow}</p>}
+            <h1 className="type-display mt-3 text-[var(--color-inverse)]">{section.heading}</h1>
+            <p className="type-body mt-5 max-w-md text-[var(--color-inverse)]/85">{section.subheading}</p>
             <Button
               href={section.ctaHref}
               className="mt-8 !bg-[var(--color-inverse)] !text-[var(--color-ink)]"

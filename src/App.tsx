@@ -5,6 +5,7 @@ import { CartProvider } from '@/engine/CartProvider'
 import { OverlayProvider } from '@/engine/OverlayProvider'
 import { AboutPage } from '@/pages/AboutPage'
 import { CollectionPage } from '@/pages/CollectionPage'
+import { FoundationPage } from '@/pages/FoundationPage'
 import { HomePage } from '@/pages/HomePage'
 import { ProductPage } from '@/pages/ProductPage'
 
@@ -17,6 +18,7 @@ export default function App() {
             <Routes>
               <Route element={<Layout />}>
                 <Route path="/" element={<HomePage />} />
+                <Route path="/system" element={<FoundationPage />} />
                 <Route path="/collections/:slug" element={<CollectionPage />} />
                 <Route path="/products/:slug" element={<ProductPage />} />
                 <Route path="/about" element={<AboutPage />} />

@@ -202,7 +202,8 @@ export const aurelProducts: Product[] = [
       { src: '/brands/aurel/product-07-alt.webp', alt: 'Mineral Silk SPF texture on bare skin' },
     ],
     variants: [
-      { id: 'spf-50', label: '50 ml', sku: 'AUR-MS-50', inStock: true },
+      { id: 'spf-50', label: '50 ml', sku: 'AUR-MS-50', inStock: true, swatch: '#E8D8C4' },
+      { id: 'spf-50-deep', label: 'Deep', sku: 'AUR-MS-50D', inStock: true, swatch: '#8A5A3C' },
     ],
     rating: 4.7,
     reviewCount: 187,

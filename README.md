@@ -28,4 +28,12 @@ Open `http://localhost:5173`.
 2. Register it in `src/brands/registry.ts` and set `activeBrandId`.
 3. Place photography in `public/brands/<id>/` using predictable paths (`hero.webp`, `product-01.webp`, …).
 
-See `IMPLEMENTATION_PLAN.md` for architecture.
+## Design system
+
+Tokens live in `src/index.css` (`:root` CSS variables) and are overridden per brand in `applyTheme`.
+
+Reusable type styles: `.type-display`, `.type-h1`, `.type-h2`, `.type-h3`, `.type-body-lg`, `.type-body`, `.type-body-sm`, `.type-eyebrow`, `.type-nav`, `.type-button`, `.type-price`, `.type-product`, `.type-meta`, `.type-logo`.
+
+Foundation components: `Container`, `Section`, `Heading`, `Image`, `TextLink`, `Button`, `ProductCard`, `ProductGrid`, `Header`, `MobileMenu`, `Footer`, `AnnouncementBar`.
+
+Inspect them at `/system`.

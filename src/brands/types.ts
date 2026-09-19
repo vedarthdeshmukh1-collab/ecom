@@ -1,6 +1,7 @@
 export type NavLink = {
   label: string
   href: string
+  external?: boolean
 }
 
 export type BrandColors = {
@@ -16,7 +17,56 @@ export type BrandColors = {
 export type BrandTypography = {
   display: string
   body: string
+  ui: string
   googleFontsUrl: string
+}
+
+/** Optional brand overrides for the shared token sheet. Unset values keep CSS defaults. */
+export type BrandShape = {
+  radiusSm: string
+  radiusMd: string
+  radiusFull: string
+  borderWidth: string
+  shadow: string
+}
+
+export type HeaderChrome = {
+  logoPosition: 'center' | 'left'
+  splitNav: boolean
+  showSearch: boolean
+  showAccount: boolean
+  showCart: boolean
+  accountHref: string
+  desktopNavFrom: 'lg' | 'xl'
+}
+
+export type SocialLink = {
+  label: string
+  href: string
+}
+
+export type FooterContent = {
+  blurb: string
+  columns: { title: string; links: NavLink[] }[]
+  newsletter?: {
+    heading: string
+    body: string
+    placeholder: string
+    ctaLabel: string
+  }
+  social: SocialLink[]
+  legal: NavLink[]
+  payments: string[]
+  copyright: string
+}
+
+export type BrandCopy = {
+  addToCart: string
+  quickAdd: string
+  account: string
+  search: string
+  cart: string
+  menu: string
 }
 
 export type ProductImage = {
@@ -32,6 +82,8 @@ export type ProductVariant = {
   compareAtPrice?: number
   imageIndex?: number
   inStock: boolean
+  /** Hex swatch for color/material indicators. Omit for size-only variants. */
+  swatch?: string
 }
 
 export type Product = {
@@ -166,12 +218,6 @@ export type BrandStory = {
   values: { title: string; body: string }[]
 }
 
-export type FooterContent = {
-  blurb: string
-  columns: { title: string; links: NavLink[] }[]
-  copyright: string
-}
-
 export type Brand = {
   id: string
   name: string
@@ -180,6 +226,9 @@ export type Brand = {
   category: string
   typography: BrandTypography
   colors: BrandColors
+  shape: BrandShape
+  copy: BrandCopy
+  header: HeaderChrome
   logoText: string
   announcement: string
   navigation: NavLink[]

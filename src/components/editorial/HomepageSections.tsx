@@ -47,16 +47,12 @@ function Featured({ section }: { section: FeaturedSection }) {
   const brand = useBrand()
   const products = productsForIds(brand, section.productIds)
   return (
-    <section className="mx-auto max-w-[1440px] px-4 py-16 md:px-8 md:py-20 lg:px-12">
+    <section className="container-site section-y">
       <div className="mb-10 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
         <div>
-          {section.eyebrow && (
-            <p className="text-[11px] tracking-[0.22em] uppercase text-[var(--color-muted)]">{section.eyebrow}</p>
-          )}
-          <h2 className="font-display mt-2 text-3xl tracking-tight md:text-4xl">{section.heading}</h2>
-          {section.subheading && (
-            <p className="mt-3 max-w-md text-sm text-[var(--color-muted)]">{section.subheading}</p>
-          )}
+          {section.eyebrow && <p className="type-eyebrow">{section.eyebrow}</p>}
+          <h2 className="type-h2 mt-2">{section.heading}</h2>
+          {section.subheading && <p className="type-body-sm mt-3 max-w-md">{section.subheading}</p>}
         </div>
         {section.ctaLabel && section.ctaHref && (
           <Button variant="underline" href={section.ctaHref}>
