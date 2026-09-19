@@ -106,8 +106,10 @@ export function ProductCard({
       <div className={cx('mt-3', resolvedAlign === 'center' ? 'flex flex-col items-center' : '')}>
         <div
           className={cx(
-            'flex gap-3',
-            stacked || resolvedAlign === 'center' ? 'flex-col items-start' : 'items-baseline justify-between',
+            'flex gap-x-3 gap-y-1',
+            stacked || resolvedAlign === 'center'
+              ? 'flex-col items-start'
+              : 'flex-col items-start sm:flex-row sm:items-baseline sm:justify-between',
             resolvedAlign === 'center' && 'items-center',
           )}
         >

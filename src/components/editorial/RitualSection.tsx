@@ -14,15 +14,15 @@ export function RitualSection({ section }: { section: RitualSectionConfig }) {
       <Reveal>
         <h2 className="type-h2 max-w-lg">{section.heading}</h2>
       </Reveal>
-      <div className="mt-12 grid gap-14 md:mt-16 lg:grid-cols-3 lg:items-start lg:gap-8">
+      <div className="mt-12 grid gap-14 md:mt-16 lg:grid-cols-3 lg:items-start lg:gap-10">
         {section.steps.map((step, index) => {
           const product = getProduct(brand, step.productId)
           const href = product ? `/products/${product.slug}` : '/collections/all'
           const name = product?.name ?? step.title
           return (
-            <Reveal key={step.number} delay={index * 0.08} className={cx(index === 1 && 'lg:mt-12', index === 2 && 'lg:mt-6')}>
+            <Reveal key={step.number} delay={index * 0.08} className={cx(index === 1 && 'lg:mt-10')}>
               <article className="group">
-                <div className="aspect-[3/4] overflow-hidden bg-[var(--color-surface)]">
+                <div className="aspect-[4/5] overflow-hidden bg-[var(--color-surface)] lg:max-h-[28rem] lg:aspect-auto lg:h-[28rem]">
                   <BrandImage
                     src={step.image}
                     alt={step.imageAlt}
@@ -30,7 +30,7 @@ export function RitualSection({ section }: { section: RitualSectionConfig }) {
                     className="media-hover-zoom h-full w-full object-cover"
                   />
                 </div>
-                <p className="type-eyebrow mt-6">{step.number}</p>
+                <p className="type-eyebrow mt-5">{step.number}</p>
                 <h3 className="type-h3 mt-3">{step.title}</h3>
                 <p className="type-product mt-2">{name}</p>
                 <p className="type-body-sm mt-3 max-w-sm">{step.body}</p>

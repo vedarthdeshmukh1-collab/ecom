@@ -114,7 +114,7 @@ export function Header() {
             <Link
               to={chrome.accountHref}
               aria-label={brand.copy.account}
-              className="hidden h-10 w-10 items-center justify-center md:flex"
+              className="flex h-10 w-10 items-center justify-center"
             >
               <User size={17} strokeWidth={1.5} />
             </Link>

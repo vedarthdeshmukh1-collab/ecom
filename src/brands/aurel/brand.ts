@@ -153,8 +153,8 @@ export const aurelBrand: Brand = {
         eyebrow: 'Our approach',
         heading: 'Less, but better.',
         body: 'AUREL is built around the belief that an effective routine does not need to be complicated. We create considered formulations, refined textures and purposeful essentials designed to earn their place in your daily ritual.',
-        image: '/brands/aurel/philosophy.webp',
-        imageAlt: 'Quiet still life of glass, linen and warm light from the AUREL studio',
+        image: '/brands/aurel/editorial-04.webp',
+        imageAlt: 'A single AUREL bottle in a quiet stone interior at dusk',
       },
       {
         type: 'imageText',

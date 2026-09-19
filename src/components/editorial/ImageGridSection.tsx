@@ -5,10 +5,10 @@ import { BrandImage } from '@/media/BrandImage'
 import { cx } from '@/system/cx'
 
 const sizeClass = {
-  large: 'col-span-2 aspect-[4/5] md:col-span-7 md:row-span-2 md:aspect-auto md:min-h-[36rem]',
-  tall: 'col-span-1 aspect-[3/4] md:col-span-5 md:min-h-[22rem]',
-  wide: 'col-span-2 aspect-[16/10] md:col-span-7',
-  default: 'col-span-1 aspect-square md:col-span-5 md:aspect-auto',
+  large: 'col-span-2 aspect-[4/5] md:col-span-7 md:row-span-2 md:aspect-auto md:h-full',
+  tall: 'col-span-1 aspect-[3/4] md:col-span-5 md:row-span-2 md:aspect-auto md:h-full',
+  wide: 'col-span-2 aspect-[16/10] md:col-span-7 md:aspect-auto md:h-full',
+  default: 'col-span-1 aspect-square md:col-span-5 md:aspect-auto md:h-full',
 } as const
 
 export function ImageGridSection({ section }: { section: ImageGridSectionConfig }) {
@@ -17,7 +17,7 @@ export function ImageGridSection({ section }: { section: ImageGridSectionConfig 
   return (
     <section className="container-site section-y">
       <Reveal>
-        <div className="grid grid-cols-2 gap-2 md:grid-cols-12 md:gap-3">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-12 md:grid-rows-[minmax(14rem,26vh)_minmax(14rem,26vh)_minmax(12rem,22vh)] md:gap-3">
           {section.images.map((image) => (
             <div
               key={image.src + image.alt}

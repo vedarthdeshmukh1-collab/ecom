@@ -6,7 +6,7 @@ export function AnnouncementBar() {
   if (!brand.announcement) return null
   return (
     <div className="border-b border-[var(--color-line)] px-4 py-2 text-center">
-      <span className={`${typeClass.eyebrow} block overflow-hidden text-ellipsis whitespace-nowrap`}>
+      <span className={`${typeClass.eyebrow} block px-1 leading-relaxed sm:overflow-hidden sm:text-ellipsis sm:whitespace-nowrap sm:leading-[var(--leading-ui)]`}>
         {brand.announcement}
       </span>
     </div>

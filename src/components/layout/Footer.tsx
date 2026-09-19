@@ -46,8 +46,8 @@ export function Footer() {
         </div>
       )}
 
-      <Container className="grid gap-12 py-16 md:grid-cols-12 md:py-20">
-        <div className="md:col-span-4">
+      <Container className="grid gap-12 py-16 sm:grid-cols-2 lg:grid-cols-12 lg:py-20">
+        <div className="sm:col-span-2 lg:col-span-4">
           <p className={typeClass.logo}>{brand.logoText}</p>
           <p className="type-body-sm mt-5 max-w-sm">{brand.footer.blurb}</p>
           {brand.footer.social.length > 0 && (
@@ -63,7 +63,7 @@ export function Footer() {
           )}
         </div>
         {brand.footer.columns.map((col) => (
-          <div key={col.title} className="md:col-span-2 md:col-start-auto">
+          <div key={col.title} className="lg:col-span-2">
             <p className={typeClass.eyebrow}>{col.title}</p>
             <ul className="mt-4 space-y-2">
               {col.links.map((link) => (
