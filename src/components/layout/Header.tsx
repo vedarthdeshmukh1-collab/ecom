@@ -14,14 +14,14 @@ export function Header() {
       <div className="mx-auto flex h-14 max-w-[1440px] items-center justify-between px-4 md:h-16 md:px-8 lg:px-12">
         <button
           type="button"
-          className="flex h-10 w-10 items-center justify-center lg:hidden"
+          className="flex h-10 w-10 items-center justify-center xl:hidden"
           aria-label="Open menu"
           onClick={() => open('menu')}
         >
           <Menu size={18} strokeWidth={1.5} />
         </button>
 
-        <nav className="hidden flex-1 items-center gap-7 lg:flex">
+        <nav className="hidden flex-1 items-center gap-7 xl:flex">
           {brand.navigation.slice(0, 3).map((link) => (
             <NavLink
               key={link.href + link.label}
@@ -43,7 +43,7 @@ export function Header() {
         </Link>
 
         <div className="flex flex-1 items-center justify-end gap-1 md:gap-2">
-          <nav className="mr-4 hidden items-center gap-7 lg:flex">
+          <nav className="mr-4 hidden items-center gap-7 xl:flex">
             {brand.navigation.slice(3).map((link) => (
               <NavLink
                 key={link.href + link.label}

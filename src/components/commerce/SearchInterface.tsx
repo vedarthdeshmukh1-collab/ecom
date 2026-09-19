@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Modal } from '@/components/ui/Modal'
 import { searchProducts } from '@/engine/catalog'
@@ -12,10 +12,16 @@ export function SearchInterface() {
   const { overlay, close } = useOverlay()
   const [query, setQuery] = useState('')
   const results = useMemo(() => searchProducts(brand, query), [brand, query])
+  const open = overlay === 'search'
+
+  useEffect(() => {
+    if (!open) setQuery('')
+  }, [open])
 
   return (
-    <Modal open={overlay === 'search'} onClose={close} title="Search">
+    <Modal open={open} onClose={close} title="Search">
       <input
+        id="site-search"
         autoFocus
         value={query}
         onChange={(e) => setQuery(e.target.value)}

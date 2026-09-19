@@ -60,9 +60,9 @@ export function ProductPage() {
               }}
             />
           </div>
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-8 flex flex-col items-start gap-3">
             <QuantitySelector value={qty} onChange={setQty} />
-            <div className="flex-1">
+            <div className="w-full">
               <AddToCartButton product={product} variant={variant} quantity={qty} />
             </div>
           </div>
@@ -72,7 +72,9 @@ export function ProductPage() {
 
           <div className="mt-12 space-y-8 border-t border-[var(--color-line)] pt-8">
             <details open className="group">
-              <summary className="cursor-pointer text-[12px] tracking-[0.16em] uppercase">Details</summary>
+              <summary className="cursor-pointer list-none text-[12px] tracking-[0.16em] uppercase [&::-webkit-details-marker]:hidden">
+                Details
+              </summary>
               <ul className="mt-4 list-disc space-y-2 pl-4 text-sm text-[var(--color-muted)]">
                 {product.details.map((d) => (
                   <li key={d}>{d}</li>
@@ -81,13 +83,17 @@ export function ProductPage() {
             </details>
             {product.howToUse && (
               <details className="group border-t border-[var(--color-line)] pt-8">
-                <summary className="cursor-pointer text-[12px] tracking-[0.16em] uppercase">How to use</summary>
+                <summary className="cursor-pointer list-none text-[12px] tracking-[0.16em] uppercase [&::-webkit-details-marker]:hidden">
+                  How to use
+                </summary>
                 <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted)]">{product.howToUse}</p>
               </details>
             )}
             {product.ingredients && (
               <details className="group border-t border-[var(--color-line)] pt-8">
-                <summary className="cursor-pointer text-[12px] tracking-[0.16em] uppercase">Ingredients</summary>
+                <summary className="cursor-pointer list-none text-[12px] tracking-[0.16em] uppercase [&::-webkit-details-marker]:hidden">
+                  Ingredients
+                </summary>
                 <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted)]">{product.ingredients}</p>
               </details>
             )}

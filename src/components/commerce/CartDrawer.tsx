@@ -37,7 +37,7 @@ export function CartDrawer() {
           >
             <div className="flex items-center justify-between border-b border-[var(--color-line)] px-5 py-4">
               <h2 className="text-[12px] tracking-[0.22em] uppercase">Your cabinet</h2>
-              <button type="button" aria-label="Close cart" onClick={close}>
+              <button type="button" aria-label="Close cart panel" onClick={close}>
                 <X size={18} strokeWidth={1.5} />
               </button>
             </div>

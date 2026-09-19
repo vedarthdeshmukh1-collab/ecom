@@ -40,7 +40,7 @@ export function ProductCard({ product }: { product: Product }) {
                 <span className="mr-2 text-[var(--color-muted)] line-through">
                   {formatMoney(product.compareAtPrice)}
                 </span>
-                {formatMoney(product.price)}
+                <span>{formatMoney(product.price)}</span>
               </>
             ) : (
               formatMoney(product.price)

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Outlet, ScrollRestoration, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { CartDrawer } from '@/components/commerce/CartDrawer'
 import { SearchInterface } from '@/components/commerce/SearchInterface'
 import { AnnouncementBar } from '@/components/layout/AnnouncementBar'
@@ -21,6 +21,7 @@ export function Layout() {
 
   useEffect(() => {
     close()
+    window.scrollTo(0, 0)
   }, [location.pathname, close])
 
   return (
@@ -32,7 +33,6 @@ export function Layout() {
       <CartDrawer />
       <MobileMenu />
       <SearchInterface />
-      <ScrollRestoration />
     </div>
   )
 }

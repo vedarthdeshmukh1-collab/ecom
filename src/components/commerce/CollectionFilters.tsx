@@ -1,19 +1,17 @@
 type Props = {
   categories: string[]
-  tags: string[]
   category?: string
-  tag?: string
   sort?: string
-  onChange: (next: { category?: string; tag?: string; sort?: string }) => void
+  onChange: (next: { category?: string; sort?: string }) => void
 }
 
-export function CollectionFilters({ categories, tags, category, tag, sort, onChange }: Props) {
+export function CollectionFilters({ categories, category, sort, onChange }: Props) {
   return (
     <div className="mb-10 flex flex-col gap-4 border-y border-[var(--color-line)] py-4 md:flex-row md:items-center md:justify-between">
       <div className="no-scrollbar flex gap-2 overflow-x-auto">
         <FilterChip
           active={!category || category === 'all'}
-          onClick={() => onChange({ category: 'all', tag, sort })}
+          onClick={() => onChange({ category: 'all', sort })}
         >
           All
         </FilterChip>
@@ -21,18 +19,9 @@ export function CollectionFilters({ categories, tags, category, tag, sort, onCha
           <FilterChip
             key={c}
             active={category === c}
-            onClick={() => onChange({ category: c, tag, sort })}
+            onClick={() => onChange({ category: c, sort })}
           >
             {c}
-          </FilterChip>
-        ))}
-        {tags.slice(0, 6).map((t) => (
-          <FilterChip
-            key={t}
-            active={tag === t}
-            onClick={() => onChange({ category, tag: tag === t ? undefined : t, sort })}
-          >
-            {t}
           </FilterChip>
         ))}
       </div>
@@ -41,7 +30,7 @@ export function CollectionFilters({ categories, tags, category, tag, sort, onCha
         <select
           className="border-0 bg-transparent text-[12px] tracking-normal text-[var(--color-ink)] outline-none"
           value={sort ?? 'featured'}
-          onChange={(e) => onChange({ category, tag, sort: e.target.value })}
+          onChange={(e) => onChange({ category, sort: e.target.value })}
         >
           <option value="featured">Featured</option>
           <option value="price-asc">Price · low</option>
