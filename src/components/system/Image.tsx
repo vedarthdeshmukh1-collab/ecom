@@ -26,6 +26,7 @@ export function Image({
   sizes,
   srcSet,
   loading = 'lazy',
+  fetchPriority,
   ...rest
 }: Props) {
   const brand = useBrand()
@@ -33,6 +34,7 @@ export function Image({
   const label = fallbackLabel ?? brand.logoText
   const fitClass = fit === 'contain' ? 'object-contain' : fit === 'none' ? 'object-none' : 'object-cover'
   const ratioCls = aspectClass(ratio)
+  const eager = loading === 'eager'
 
   if (failed || !src) {
     return (
@@ -58,6 +60,7 @@ export function Image({
       sizes={sizes}
       srcSet={srcSet}
       loading={loading}
+      fetchPriority={eager ? 'high' : fetchPriority}
       className={cx(fitClass, ratioCls ? 'h-full w-full' : '', className)}
       style={{ objectPosition: position, borderRadius: 'var(--radius-sm)' }}
       onError={() => setFailed(true)}

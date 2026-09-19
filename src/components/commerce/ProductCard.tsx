@@ -53,6 +53,7 @@ export function ProductCard({
               src={image.src}
               alt={image.alt}
               fallbackLabel={brand.logoText}
+              loading="eager"
               className="h-full w-full object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-editorial)] group-hover:scale-[1.03]"
             />
             {secondary && (

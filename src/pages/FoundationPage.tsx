@@ -91,11 +91,11 @@ export function FoundationPage() {
           <Heading variant="h2" className="mt-2">
             Ratios and fallback
           </Heading>
-          <div className="mt-10 grid grid-cols-2 gap-4 md:grid-cols-4">
-            <Image src={brand.photography.hero} alt="Hero still life" ratio="portrait" />
-            <Image src={brand.photography.story} alt="Atelier" ratio="square" />
-            <Image src={brand.photography.editorial01} alt="Editorial" ratio="landscape" />
-            <Image src="/brands/aurel/missing.webp" alt="Missing asset fallback" ratio="portrait" />
+          <div className="mt-10 grid grid-cols-2 items-start gap-4 md:grid-cols-4">
+            <Image src={brand.photography.hero} alt="Hero still life" ratio="portrait" loading="eager" />
+            <Image src={brand.photography.story} alt="Atelier" ratio="square" loading="eager" />
+            <Image src={brand.photography.editorial01} alt="Editorial" ratio="landscape" loading="eager" />
+            <Image src="/brands/aurel/missing.webp" alt="Missing asset fallback" ratio="portrait" loading="eager" />
           </div>
         </Container>
       </Section>
