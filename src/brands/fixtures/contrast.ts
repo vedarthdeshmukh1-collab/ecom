@@ -1,0 +1,86 @@
+import type { Brand } from '../types'
+import { aurelBrand } from '../aurel/brand'
+
+/** Fixture only — proves personality is data, not component code. Not a second storefront. */
+export const contrastBrand: Brand = {
+  ...aurelBrand,
+  id: 'contrast',
+  typography: {
+    display: '"Fraunces", "Times New Roman", serif',
+    body: '"Inter", "Helvetica Neue", sans-serif',
+    ui: '"Inter", "Helvetica Neue", sans-serif',
+    googleFontsUrl:
+      'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap',
+    tracking: {
+      display: '-0.03em',
+      heading: '-0.025em',
+      body: '0',
+      eyebrow: '0.08em',
+      nav: '0.01em',
+      button: '0.04em',
+      logo: '0.06em',
+      meta: '0.02em',
+    },
+    transform: {
+      eyebrow: 'uppercase',
+      nav: 'none',
+      button: 'none',
+      logo: 'none',
+    },
+  },
+  colors: {
+    background: '#F7F5F2',
+    surface: '#FFFFFF',
+    ink: '#141414',
+    muted: '#5C5C5C',
+    accent: '#C45C26',
+    line: '#E4DFD8',
+    inverse: '#FFFFFF',
+  },
+  shape: {
+    radiusSm: '8px',
+    radiusMd: '14px',
+    radiusLg: '22px',
+    radiusFull: '999px',
+    borderWidth: '1px',
+    shadow: '0 8px 24px rgb(20 20 20 / 0.08)',
+    shadowRaised: '0 12px 32px rgb(20 20 20 / 0.12)',
+  },
+  density: 'compact',
+  buttons: {
+    radius: 'full',
+    shadow: true,
+    px: '1.35rem',
+    py: '0.7rem',
+  },
+  media: {
+    productRatio: 'square',
+    editorialRatio: 'landscape',
+    storyRatio: 'square',
+  },
+  productCard: {
+    align: 'left',
+    ratio: 'square',
+    hoverScale: 1.06,
+    hoverSwap: true,
+    showRating: true,
+    showQuickAdd: true,
+    showSwatches: true,
+    showCategory: true,
+    titlePrice: 'stack',
+    elevated: true,
+  },
+  header: {
+    logoPosition: 'left',
+    splitNav: false,
+    showSearch: true,
+    showAccount: true,
+    showCart: true,
+    accountHref: '/about',
+    desktopNavFrom: 'lg',
+    sticky: true,
+    blur: false,
+    bordered: false,
+    elevated: true,
+  },
+}

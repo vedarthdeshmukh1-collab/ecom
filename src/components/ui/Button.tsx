@@ -13,16 +13,10 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 const variants: Record<Variant, string> = {
-  solid:
-    'bg-[var(--color-ink)] text-[var(--color-inverse)] hover:opacity-85',
+  solid: 'bg-[var(--color-ink)] text-[var(--color-inverse)] hover:opacity-85',
   ghost:
     'border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-inverse)]',
-  underline: 'underline-offset-8 hover:underline px-0 py-0',
-}
-
-const sizes: Record<Size, string> = {
-  md: 'px-6 py-3',
-  sm: 'px-4 py-2',
+  underline: 'underline-offset-8 hover:underline px-0 py-0 shadow-none',
 }
 
 export function Button({
@@ -37,19 +31,24 @@ export function Button({
   const cls = cx(
     'inline-flex items-center justify-center transition-[opacity,color,background-color] duration-[var(--duration-fast)] ease-[var(--ease-editorial)]',
     typeClass.button,
-    variant !== 'underline' && sizes[size],
+    variant !== 'underline' && 'px-[var(--btn-px)] py-[var(--btn-py)]',
+    size === 'sm' && variant !== 'underline' && '!px-4 !py-2',
     variants[variant],
     className,
   )
+  const style = {
+    borderRadius: variant === 'underline' ? 0 : 'var(--radius-button)',
+    boxShadow: variant === 'underline' ? 'none' : 'var(--shadow-button)',
+  }
   if (href) {
     return (
-      <Link to={href} className={cls} onClick={onClick as never}>
+      <Link to={href} className={cls} style={style} onClick={onClick as never}>
         {children}
       </Link>
     )
   }
   return (
-    <button className={cls} onClick={onClick} {...rest}>
+    <button className={cls} style={style} onClick={onClick} {...rest}>
       {children}
     </button>
   )

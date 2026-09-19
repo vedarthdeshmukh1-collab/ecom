@@ -39,6 +39,7 @@ export function Modal({ open, onClose, title, children, align = 'top' }: Props) 
             role="dialog"
             aria-modal
             className="relative w-full max-w-2xl bg-[var(--color-bg)] p-6 md:p-10"
+            style={{ borderRadius: 'var(--radius-lg)', boxShadow: 'var(--shadow-raised)' }}
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 8 }}

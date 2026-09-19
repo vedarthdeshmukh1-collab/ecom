@@ -11,10 +11,10 @@ import { ProductPage } from '@/pages/ProductPage'
 
 export default function App() {
   return (
-    <BrandProvider>
-      <OverlayProvider>
-        <CartProvider>
-          <BrowserRouter>
+    <BrowserRouter>
+      <BrandProvider>
+        <OverlayProvider>
+          <CartProvider>
             <Routes>
               <Route element={<Layout />}>
                 <Route path="/" element={<HomePage />} />
@@ -24,9 +24,9 @@ export default function App() {
                 <Route path="/about" element={<AboutPage />} />
               </Route>
             </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </OverlayProvider>
-    </BrandProvider>
+          </CartProvider>
+        </OverlayProvider>
+      </BrandProvider>
+    </BrowserRouter>
   )
 }

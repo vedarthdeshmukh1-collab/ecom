@@ -62,7 +62,7 @@ export function Image({
       loading={loading}
       fetchPriority={eager ? 'high' : fetchPriority}
       className={cx(fitClass, ratioCls ? 'h-full w-full' : '', className)}
-      style={{ objectPosition: position, borderRadius: 'var(--radius-sm)' }}
+      style={{ objectPosition: position, borderRadius: 'var(--radius-media)' }}
       onError={() => setFailed(true)}
       {...rest}
     />
@@ -71,7 +71,7 @@ export function Image({
   if (!ratioCls) return img
 
   return (
-    <div className={cx('overflow-hidden bg-[var(--color-surface)]', ratioCls, frameClassName)}>
+    <div className={cx('overflow-hidden bg-[var(--color-surface)]', ratioCls, frameClassName)} style={{ borderRadius: 'var(--radius-media)' }}>
       {img}
     </div>
   )

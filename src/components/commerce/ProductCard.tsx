@@ -1,14 +1,14 @@
 import { Star } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import type { Product } from '@/brands/types'
+import type { ImageRatio, Product } from '@/brands/types'
 import { Button } from '@/components/ui/Button'
 import { Image } from '@/components/system/Image'
 import { Heading } from '@/components/system/Heading'
 import { useBrand } from '@/engine/BrandProvider'
 import { useCart } from '@/engine/CartProvider'
 import { formatMoney } from '@/engine/format'
-import { aspectClass, cx, type ImageRatio } from '@/system/cx'
+import { aspectClass, cx, ratioCss } from '@/system/cx'
 
 export type ProductCardProps = {
   product: Product
@@ -23,16 +23,23 @@ export type ProductCardProps = {
 
 export function ProductCard({
   product,
-  align = 'left',
-  ratio = 'portrait',
-  showRating = false,
-  showQuickAdd = false,
-  showSwatches = true,
+  align,
+  ratio,
+  showRating,
+  showQuickAdd,
+  showSwatches,
   showBadge = true,
-  showCategory = true,
+  showCategory,
 }: ProductCardProps) {
   const brand = useBrand()
+  const style = brand.productCard
   const { add } = useCart()
+  const resolvedAlign = align ?? style.align
+  const resolvedRatio = ratio ?? style.ratio
+  const resolvedRating = showRating ?? style.showRating
+  const resolvedQuickAdd = showQuickAdd ?? style.showQuickAdd
+  const resolvedSwatches = showSwatches ?? style.showSwatches
+  const resolvedCategory = showCategory ?? style.showCategory
   const [activeSwatch, setActiveSwatch] = useState(
     product.variants.find((v) => v.swatch)?.id ?? product.variants[0]?.id,
   )
@@ -43,20 +50,28 @@ export function ProductCard({
   const price = selected?.price ?? product.price
   const compare = selected?.compareAtPrice ?? (selected?.price ? undefined : product.compareAtPrice)
   const image = product.images[selected?.imageIndex ?? 0] ?? primary
+  const stacked = (resolvedAlign === 'center' ? 'stack' : style.titlePrice) === 'stack'
 
   return (
-    <article className={cx('group', align === 'center' && 'text-center')}>
+    <article className={cx('group', resolvedAlign === 'center' && 'text-center')}>
       <div className="relative">
         <Link to={`/products/${product.slug}`} className="block">
-          <div className={cx('relative overflow-hidden bg-[var(--color-surface)]', aspectClass(ratio))}>
+          <div
+            className={cx('relative overflow-hidden bg-[var(--color-surface)]', aspectClass(resolvedRatio))}
+            style={{
+              borderRadius: 'var(--radius-media)',
+              boxShadow: 'var(--shadow-card)',
+              aspectRatio: ratioCss[resolvedRatio],
+            }}
+          >
             <Image
               src={image.src}
               alt={image.alt}
               fallbackLabel={brand.logoText}
               loading="eager"
-              className="h-full w-full object-cover transition-transform duration-[var(--duration-slow)] ease-[var(--ease-editorial)] group-hover:scale-[1.03]"
+              className="media-hover-zoom h-full w-full object-cover"
             />
-            {secondary && (
+            {style.hoverSwap && secondary && (
               <img
                 src={secondary.src}
                 alt=""
@@ -70,7 +85,7 @@ export function ProductCard({
             )}
           </div>
         </Link>
-        {showQuickAdd && selected && (
+        {resolvedQuickAdd && selected && (
           <div className="pointer-events-none absolute inset-x-3 bottom-3 hidden opacity-0 transition-opacity duration-[var(--duration-med)] group-hover:opacity-100 md:block">
             <div className="pointer-events-auto">
               <Button
@@ -86,11 +101,12 @@ export function ProductCard({
         )}
       </div>
 
-      <div className={cx('mt-3', align === 'center' ? 'flex flex-col items-center' : '')}>
+      <div className={cx('mt-3', resolvedAlign === 'center' ? 'flex flex-col items-center' : '')}>
         <div
           className={cx(
             'flex gap-3',
-            align === 'center' ? 'flex-col items-center' : 'items-baseline justify-between',
+            stacked || resolvedAlign === 'center' ? 'flex-col items-start' : 'items-baseline justify-between',
+            resolvedAlign === 'center' && 'items-center',
           )}
         >
           <Link to={`/products/${product.slug}`}>
@@ -109,16 +125,16 @@ export function ProductCard({
             )}
           </p>
         </div>
-        {showCategory && <p className="type-meta mt-1">{product.category}</p>}
-        {showRating && (
+        {resolvedCategory && <p className="type-meta mt-1">{product.category}</p>}
+        {resolvedRating && (
           <p className="type-meta mt-1 flex items-center gap-1">
             <Star size={11} fill="currentColor" className="text-[var(--color-accent)]" />
             {product.rating.toFixed(1)}
             <span>· {product.reviewCount}</span>
           </p>
         )}
-        {showSwatches && swatches.length > 0 && (
-          <div className={cx('mt-2 flex gap-1.5', align === 'center' && 'justify-center')}>
+        {resolvedSwatches && swatches.length > 0 && (
+          <div className={cx('mt-2 flex gap-1.5', resolvedAlign === 'center' && 'justify-center')}>
             {swatches.map((variant) => (
               <button
                 key={variant.id}

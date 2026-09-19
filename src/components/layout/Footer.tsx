@@ -37,6 +37,7 @@ export function Footer() {
                   type="email"
                   placeholder={newsletter.placeholder}
                   className="type-body h-12 flex-1 border border-[var(--color-line)] bg-transparent px-4 outline-none placeholder:text-[var(--color-muted)]"
+                  style={{ borderRadius: 'var(--radius-sm)' }}
                 />
                 <Button type="submit">{newsletter.ctaLabel}</Button>
               </form>

@@ -29,7 +29,7 @@ export function CartDrawer() {
             onClick={close}
           />
           <motion.aside
-            className="fixed top-0 right-0 z-50 flex h-dvh w-full max-w-md flex-col bg-[var(--color-bg)] shadow-none"
+            className="fixed top-0 right-0 z-50 flex h-dvh w-full max-w-md flex-col bg-[var(--color-bg)]"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}

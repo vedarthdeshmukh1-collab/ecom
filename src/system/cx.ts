@@ -1,7 +1,20 @@
+import type { ImageRatio } from '@/brands/types'
 import type { CSSProperties } from 'react'
+
+export type { ImageRatio }
 
 export function cx(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(' ')
+}
+
+export const ratioCss: Record<ImageRatio, string> = {
+  square: '1 / 1',
+  landscape: '4 / 3',
+  wide: '16 / 10',
+  video: '16 / 9',
+  tall: '4 / 5',
+  auto: 'auto',
+  portrait: '3 / 4',
 }
 
 export function aspectClass(ratio: ImageRatio = 'portrait'): string {
@@ -23,8 +36,6 @@ export function aspectClass(ratio: ImageRatio = 'portrait'): string {
       return 'aspect-[3/4]'
   }
 }
-
-export type ImageRatio = 'portrait' | 'tall' | 'square' | 'landscape' | 'wide' | 'video' | 'auto'
 
 export type TypeStyle =
   | 'display'

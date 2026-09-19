@@ -35,16 +35,25 @@ export function Header() {
   const navVisible = chrome.desktopNavFrom === 'lg' ? 'hidden lg:flex' : 'hidden xl:flex'
   const burgerVisible = chrome.desktopNavFrom === 'lg' ? 'flex lg:hidden' : 'flex xl:hidden'
   const splitAt = Math.ceil(brand.navigation.length / 2)
-  const leftNav = chrome.splitNav && chrome.logoPosition === 'center'
-    ? brand.navigation.slice(0, splitAt)
-    : brand.navigation
+  const leftNav =
+    chrome.splitNav && chrome.logoPosition === 'center'
+      ? brand.navigation.slice(0, splitAt)
+      : brand.navigation
   const rightNav =
     chrome.splitNav && chrome.logoPosition === 'center' ? brand.navigation.slice(splitAt) : []
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[var(--color-line)] bg-[var(--color-bg)]/95">
+    <header
+      className={cx(
+        'z-40 bg-[var(--color-bg)]',
+        chrome.sticky && 'sticky top-0',
+        chrome.blur && 'bg-[var(--color-bg)]/95',
+        chrome.bordered && 'border-b border-[var(--color-line)]',
+      )}
+      style={{ boxShadow: 'var(--shadow-header)' }}
+    >
       {brand.secondaryNav.length > 0 && (
-        <div className="hidden border-b border-[var(--color-line)] xl:block">
+        <div className={cx('hidden xl:block', chrome.bordered && 'border-b border-[var(--color-line)]')}>
           <Container className="flex h-8 items-center justify-end gap-6">
             {brand.secondaryNav.map((link) => (
               <Link
@@ -59,7 +68,7 @@ export function Header() {
         </div>
       )}
 
-        <Container className="relative flex items-center justify-between" style={{ minHeight: 'var(--header-height)' }}>
+      <Container className="relative flex items-center justify-between" style={{ minHeight: 'var(--header-height)' }}>
         <div className="flex min-w-0 flex-1 items-center gap-8">
           <button
             type="button"
@@ -119,7 +128,13 @@ export function Header() {
             >
               <ShoppingBag size={17} strokeWidth={1.5} />
               {count > 0 && (
-                <span className="absolute top-1.5 right-1 min-w-4 bg-[var(--color-ink)] px-1 text-[9px] leading-4 text-[var(--color-inverse)]">
+                <span
+                  className="absolute top-1.5 right-1 min-w-4 px-1 text-[9px] leading-4 text-[var(--color-inverse)]"
+                  style={{
+                    background: 'var(--color-ink)',
+                    borderRadius: 'var(--radius-full)',
+                  }}
+                >
                   {count}
                 </span>
               )}

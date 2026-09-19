@@ -39,6 +39,9 @@ export function FoundationPage() {
             Tokens, type, and merchandising primitives. Brand identity is injected from data; these
             components stay shared across storefronts.
           </Heading>
+          <Heading variant="body-sm" as="p" className="mt-3">
+            Append ?brand=contrast to restyle this page from configuration only.
+          </Heading>
         </Container>
       </Section>
 
@@ -92,10 +95,10 @@ export function FoundationPage() {
             Ratios and fallback
           </Heading>
           <div className="mt-10 grid grid-cols-2 items-start gap-4 md:grid-cols-4">
-            <Image src={brand.photography.hero} alt="Hero still life" ratio="portrait" loading="eager" />
-            <Image src={brand.photography.story} alt="Atelier" ratio="square" loading="eager" />
-            <Image src={brand.photography.editorial01} alt="Editorial" ratio="landscape" loading="eager" />
-            <Image src="/brands/aurel/missing.webp" alt="Missing asset fallback" ratio="portrait" loading="eager" />
+            <Image src={brand.photography.hero} alt="Hero still life" ratio={brand.media.productRatio} loading="eager" />
+            <Image src={brand.photography.story} alt="Atelier" ratio={brand.media.storyRatio} loading="eager" />
+            <Image src={brand.photography.editorial01} alt="Editorial" ratio={brand.media.editorialRatio} loading="eager" />
+            <Image src="/brands/aurel/missing.webp" alt="Missing asset fallback" ratio={brand.media.productRatio} loading="eager" />
           </div>
         </Container>
       </Section>
@@ -113,11 +116,7 @@ export function FoundationPage() {
               Hover image, badge, rating, swatches, quick add. Alignment and ratio are props, not brand forks.
             </Heading>
           </div>
-          <ProductGrid
-            products={sample}
-            columns={4}
-            card={{ showRating: true, showQuickAdd: true, showSwatches: true }}
-          />
+          <ProductGrid products={sample} columns={4} />
         </Container>
       </Section>
 

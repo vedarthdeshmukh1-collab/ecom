@@ -68,17 +68,35 @@
 
   --container-max: 90rem;
   --container-narrow: 45rem;
-  --gutter: 1rem;
-  --header-height: 3.5rem;
-  --section-y: 4rem;
+  --gutter: calc(1rem * var(--space-scale, 1));
+  --header-height: calc(3.5rem * var(--space-scale, 1));
+  --section-y: calc(4rem * var(--space-scale, 1));
 
   --radius-sm: 0px;
   --radius-md: 0px;
+  --radius-lg: 0px;
   --radius-full: 999px;
+  --radius-button: var(--radius-sm);
+  --radius-card: var(--radius-md);
+  --radius-media: var(--radius-sm);
   --border-width: 1px;
   --border: var(--border-width) solid var(--color-line);
   --shadow: none;
   --shadow-raised: none;
+  --shadow-card: none;
+  --shadow-header: none;
+  --shadow-button: none;
+  --btn-px: 1.5rem;
+  --btn-py: 0.75rem;
+  --space-scale: 1;
+  --aspect-product: 3 / 4;
+  --aspect-editorial: 16 / 10;
+  --aspect-story: 4 / 5;
+  --product-hover-scale: 1.03;
+  --transform-eyebrow: uppercase;
+  --transform-nav: uppercase;
+  --transform-button: uppercase;
+  --transform-logo: uppercase;
 
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-fast: 180ms;
@@ -90,9 +108,9 @@
 
 @media (min-width: 768px) {
   :root {
-    --gutter: 2rem;
-    --header-height: 4rem;
-    --section-y: 5rem;
+    --gutter: calc(2rem * var(--space-scale, 1));
+    --header-height: calc(4rem * var(--space-scale, 1));
+    --section-y: calc(5rem * var(--space-scale, 1));
     --text-body: 0.9375rem;
     --grid-products: 2;
   }
@@ -100,15 +118,15 @@
 
 @media (min-width: 1024px) {
   :root {
-    --gutter: 2.5rem;
-    --section-y: 6rem;
+    --gutter: calc(2.5rem * var(--space-scale, 1));
+    --section-y: calc(6rem * var(--space-scale, 1));
     --grid-products: 3;
   }
 }
 
 @media (min-width: 1280px) {
   :root {
-    --gutter: 3rem;
+    --gutter: calc(3rem * var(--space-scale, 1));
     --grid-products: 4;
   }
 }
@@ -203,7 +221,7 @@ body {
   font-weight: var(--weight-medium);
   line-height: var(--leading-ui);
   letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
+  text-transform: var(--transform-eyebrow);
   color: var(--color-muted);
 }
 
@@ -213,7 +231,7 @@ body {
   font-weight: var(--weight-medium);
   line-height: var(--leading-ui);
   letter-spacing: var(--tracking-nav);
-  text-transform: uppercase;
+  text-transform: var(--transform-nav);
 }
 
 .type-button {
@@ -222,7 +240,7 @@ body {
   font-weight: var(--weight-medium);
   line-height: var(--leading-ui);
   letter-spacing: var(--tracking-button);
-  text-transform: uppercase;
+  text-transform: var(--transform-button);
 }
 
 .type-price {
@@ -255,7 +273,7 @@ body {
   font-weight: var(--weight-medium);
   line-height: var(--leading-ui);
   letter-spacing: var(--tracking-logo);
-  text-transform: uppercase;
+  text-transform: var(--transform-logo);
 }
 
 .container-site {
@@ -297,4 +315,12 @@ img {
 
 .no-scrollbar {
   scrollbar-width: none;
+}
+
+.media-hover-zoom {
+  transition: transform var(--duration-slow) var(--ease-editorial);
+}
+
+.group:hover .media-hover-zoom {
+  transform: scale(var(--product-hover-scale));
 }

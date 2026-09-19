@@ -14,20 +14,58 @@ export type BrandColors = {
   inverse: string
 }
 
+export type ImageRatio = 'portrait' | 'tall' | 'square' | 'landscape' | 'wide' | 'video' | 'auto'
+
+export type TextTransform = 'uppercase' | 'none' | 'capitalize'
+
+export type SpacingDensity = 'compact' | 'regular' | 'relaxed'
+
+export type RadiusSlot = 'sm' | 'md' | 'lg' | 'full'
+
 export type BrandTypography = {
   display: string
   body: string
   ui: string
   googleFontsUrl: string
+  tracking: {
+    display: string
+    heading: string
+    body: string
+    eyebrow: string
+    nav: string
+    button: string
+    logo: string
+    meta: string
+  }
+  transform: {
+    eyebrow: TextTransform
+    nav: TextTransform
+    button: TextTransform
+    logo: TextTransform
+  }
 }
 
-/** Optional brand overrides for the shared token sheet. Unset values keep CSS defaults. */
 export type BrandShape = {
   radiusSm: string
   radiusMd: string
+  radiusLg: string
   radiusFull: string
   borderWidth: string
   shadow: string
+  shadowRaised: string
+}
+
+export type ButtonStyle = {
+  radius: RadiusSlot
+  shadow: boolean
+  px: string
+  py: string
+}
+
+export type MediaStyle = {
+  productRatio: ImageRatio
+  editorialRatio: ImageRatio
+  storyRatio: ImageRatio
 }
 
 export type HeaderChrome = {
@@ -38,6 +76,23 @@ export type HeaderChrome = {
   showCart: boolean
   accountHref: string
   desktopNavFrom: 'lg' | 'xl'
+  sticky: boolean
+  blur: boolean
+  bordered: boolean
+  elevated: boolean
+}
+
+export type ProductCardStyle = {
+  align: 'left' | 'center'
+  ratio: ImageRatio
+  hoverScale: number
+  hoverSwap: boolean
+  showRating: boolean
+  showQuickAdd: boolean
+  showSwatches: boolean
+  showCategory: boolean
+  titlePrice: 'row' | 'stack'
+  elevated: boolean
 }
 
 export type SocialLink = {
@@ -227,6 +282,10 @@ export type Brand = {
   typography: BrandTypography
   colors: BrandColors
   shape: BrandShape
+  density: SpacingDensity
+  buttons: ButtonStyle
+  media: MediaStyle
+  productCard: ProductCardStyle
   copy: BrandCopy
   header: HeaderChrome
   logoText: string
