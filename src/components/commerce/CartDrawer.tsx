@@ -48,7 +48,7 @@ export function CartDrawer() {
                   <p className="font-display text-3xl">Empty, for now.</p>
                   <p className="mt-3 text-sm text-[var(--color-muted)]">The weekday edit is waiting.</p>
                   <Button href="/collections/all" className="mt-8" onClick={close}>
-                    Shop the cabinet
+                    Shop skincare
                   </Button>
                 </div>
               ) : (

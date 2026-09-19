@@ -3,8 +3,8 @@ import type { Product } from '../types'
 export const aurelProducts: Product[] = [
   {
     id: 'lumen-cleansing-milk',
-    slug: 'lumen-cleansing-milk',
-    name: 'Lumen Cleansing Milk',
+    slug: 'the-daily-cleanser',
+    name: 'The Daily Cleanser',
     shortDescription: 'A cloud-soft cleanse that leaves skin quiet, not stripped.',
     description:
       'Lumen is a milky first cleanse for skin that prefers to be asked, not told. Meadowfoam and rice bran dissolve city film and SPF without the tight after-feel. Use at the sink in the evening, or as a gentle morning reset when you want water and little else.',
@@ -12,8 +12,8 @@ export const aurelProducts: Product[] = [
     compareAtPrice: 46,
     category: 'Cleansers',
     images: [
-      { src: '/brands/aurel/product-01.webp', alt: 'Lumen Cleansing Milk bottle on warm linen' },
-      { src: '/brands/aurel/product-01-alt.webp', alt: 'Lumen Cleansing Milk texture on ceramic' },
+      { src: '/brands/aurel/product-daily-cleanser.webp', alt: 'The Daily Cleanser bottle on warm linen' },
+      { src: '/brands/aurel/product-daily-cleanser-alt.webp', alt: 'The Daily Cleanser texture on ceramic' },
     ],
     variants: [
       { id: 'lumen-100', label: '100 ml', sku: 'AUR-LMN-100', inStock: true },
@@ -66,17 +66,17 @@ export const aurelProducts: Product[] = [
   },
   {
     id: 'aureole-vitamin-c',
-    slug: 'aureole-vitamin-c-serum',
-    name: 'Aureole Vitamin C Serum',
-    shortDescription: 'A stable, silk-finish C for brightness without the bite.',
+    slug: 'the-renewal-serum',
+    name: 'The Renewal Serum',
+    shortDescription: 'A silk-finish treatment for brightness without the bite.',
     description:
       'Aureole uses 12% ethylated ascorbic acid — a cousin of pure C that stays composed in light and air. Ferulic acid and a whisper of bisabolol keep the formula polite. Expect a gradual evening of tone, not an overnight miracle, and a finish that sits under cream without pilling.',
     price: 72,
     compareAtPrice: 84,
     category: 'Treatments',
     images: [
-      { src: '/brands/aurel/product-03.webp', alt: 'Aureole Vitamin C Serum amber dropper bottle' },
-      { src: '/brands/aurel/product-03-alt.webp', alt: 'Aureole serum texture on the back of a hand' },
+      { src: '/brands/aurel/product-renewal-serum.webp', alt: 'The Renewal Serum amber dropper bottle' },
+      { src: '/brands/aurel/product-renewal-serum-alt.webp', alt: 'The Renewal Serum texture on skin' },
     ],
     variants: [
       { id: 'aureole-30', label: '30 ml', sku: 'AUR-AUR-30', inStock: true },
@@ -98,16 +98,16 @@ export const aurelProducts: Product[] = [
   },
   {
     id: 'night-restore',
-    slug: 'night-restore-concentrate',
-    name: 'Night Restore Concentrate',
-    shortDescription: 'A slow, oil-serum hybrid for skin that works the night shift.',
+    slug: 'the-recovery-oil',
+    name: 'The Recovery Oil',
+    shortDescription: 'A slow oil-serum hybrid for skin that works the night shift.',
     description:
       'Night Restore is the richest treatment we make, and still it never feels occlusive for the sake of it. Bakuchiol, a plant-derived retinol alternative, sits with squalane and evening primrose. Skin wakes looking rested rather than polished.',
     price: 86,
     category: 'Treatments',
     images: [
-      { src: '/brands/aurel/product-04.webp', alt: 'Night Restore Concentrate dark glass bottle' },
-      { src: '/brands/aurel/product-04-alt.webp', alt: 'Night Restore oil catching warm light' },
+      { src: '/brands/aurel/product-recovery-oil.webp', alt: 'The Recovery Oil dark glass bottle' },
+      { src: '/brands/aurel/product-recovery-oil-alt.webp', alt: 'The Recovery Oil catching warm light' },
     ],
     variants: [
       { id: 'night-30', label: '30 ml', sku: 'AUR-NRC-30', inStock: true },
@@ -128,16 +128,16 @@ export const aurelProducts: Product[] = [
   },
   {
     id: 'cloud-barrier-cream',
-    slug: 'cloud-barrier-cream',
-    name: 'Cloud Barrier Cream',
+    slug: 'the-barrier-cream',
+    name: 'The Barrier Cream',
     shortDescription: 'A whipped ceramide cream that disappears, then stays.',
     description:
       'Cloud Barrier is built like a quilt: ceramides, cholesterol, and fatty acids in a ratio skin already understands. The texture is a soft mousse that melts, then forms a breathable film. It is the cream we reach for after flights, heaters, and over-exfoliation.',
     price: 64,
     category: 'Moisturize',
     images: [
-      { src: '/brands/aurel/product-05.webp', alt: 'Cloud Barrier Cream jar on stone' },
-      { src: '/brands/aurel/product-05-alt.webp', alt: 'Cloud Barrier Cream swirl texture' },
+      { src: '/brands/aurel/product-barrier-cream.webp', alt: 'The Barrier Cream jar on stone' },
+      { src: '/brands/aurel/product-barrier-cream-alt.webp', alt: 'The Barrier Cream swirl texture' },
     ],
     variants: [
       { id: 'cloud-50', label: '50 ml', sku: 'AUR-CBC-50', inStock: true },

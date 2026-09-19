@@ -1,4 +1,5 @@
 import type { EditorialSectionConfig } from '@/brands/types'
+import { Reveal } from '@/components/editorial/Reveal'
 import { Button } from '@/components/ui/Button'
 import { useBrand } from '@/engine/BrandProvider'
 import { BrandImage } from '@/media/BrandImage'
@@ -6,28 +7,28 @@ import { BrandImage } from '@/media/BrandImage'
 export function EditorialSection({ section }: { section: EditorialSectionConfig }) {
   const brand = useBrand()
   return (
-    <section className="mx-auto grid max-w-[1440px] items-center gap-8 px-4 py-16 md:grid-cols-12 md:gap-12 md:px-8 md:py-24 lg:px-12">
-      <div className="md:col-span-7">
-        <div className="aspect-[16/10] overflow-hidden bg-[var(--color-surface)] md:aspect-[16/9]">
-          <BrandImage
-            src={section.image}
-            alt={section.imageAlt}
-            fallbackLabel={brand.logoText}
-            className="h-full w-full object-cover"
-          />
-        </div>
-      </div>
-      <div className="md:col-span-5">
-        {section.eyebrow && (
-          <p className="text-[11px] tracking-[0.22em] uppercase text-[var(--color-muted)]">{section.eyebrow}</p>
-        )}
-        <h2 className="font-display mt-3 text-3xl tracking-tight md:text-4xl">{section.heading}</h2>
-        <p className="mt-5 text-sm leading-relaxed text-[var(--color-muted)]">{section.body}</p>
-        {section.ctaLabel && section.ctaHref && (
-          <Button variant="underline" href={section.ctaHref} className="mt-6">
-            {section.ctaLabel}
-          </Button>
-        )}
+    <section className="container-site section-y">
+      <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-20">
+        <Reveal className="lg:col-span-6">
+          {section.eyebrow && <p className="type-eyebrow">{section.eyebrow}</p>}
+          <h2 className="type-display mt-4 max-w-lg">{section.heading}</h2>
+          <p className="type-body-lg mt-6 max-w-md text-[var(--color-muted)]">{section.body}</p>
+          {section.ctaLabel && section.ctaHref && (
+            <Button variant="underline" href={section.ctaHref} className="mt-8">
+              {section.ctaLabel}
+            </Button>
+          )}
+        </Reveal>
+        <Reveal delay={0.1} className="lg:col-span-5 lg:col-start-8">
+          <div className="aspect-[4/5] overflow-hidden bg-[var(--color-surface)] lg:aspect-[3/4]">
+            <BrandImage
+              src={section.image}
+              alt={section.imageAlt}
+              fallbackLabel={brand.logoText}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </Reveal>
       </div>
     </section>
   )

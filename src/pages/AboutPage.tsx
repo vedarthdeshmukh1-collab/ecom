@@ -23,7 +23,7 @@ export function AboutPage() {
           body: 'We mix, fill, and photograph in the same rooms so the formula you unbox matches the one we lived with. Lots are dated. If a batch is not honest, it does not ship.',
           image: brand.photography.about ?? brand.photography.story,
           imageAlt: 'AUREL atelier still life',
-          ctaLabel: 'Shop the cabinet',
+          ctaLabel: 'Shop skincare',
           ctaHref: '/collections/all',
         }}
       />

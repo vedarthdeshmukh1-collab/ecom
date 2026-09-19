@@ -83,7 +83,7 @@ export function Header() {
               {brand.logoText}
             </Link>
           )}
-          <nav className={cx(navVisible, 'flex-1 items-center gap-7')}>
+          <nav className={cx(navVisible, 'flex-1 items-center gap-10 xl:gap-12')}>
             <NavItems links={leftNav} />
           </nav>
         </div>
@@ -96,7 +96,7 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-end gap-1">
           {rightNav.length > 0 && (
-            <nav className={cx(navVisible, 'mr-4 items-center gap-7')}>
+            <nav className={cx(navVisible, 'mr-6 items-center gap-10 xl:gap-12')}>
               <NavItems links={rightNav} />
             </nav>
           )}

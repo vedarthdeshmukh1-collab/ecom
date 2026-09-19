@@ -19,6 +19,7 @@ export type ProductCardProps = {
   showSwatches?: boolean
   showBadge?: boolean
   showCategory?: boolean
+  showDescriptor?: boolean
 }
 
 export function ProductCard({
@@ -30,6 +31,7 @@ export function ProductCard({
   showSwatches,
   showBadge = true,
   showCategory,
+  showDescriptor = false,
 }: ProductCardProps) {
   const brand = useBrand()
   const style = brand.productCard
@@ -125,6 +127,9 @@ export function ProductCard({
             )}
           </p>
         </div>
+        {showDescriptor && (
+          <p className="type-body-sm mt-1 max-w-[16rem]">{product.shortDescription}</p>
+        )}
         {resolvedCategory && <p className="type-meta mt-1">{product.category}</p>}
         {resolvedRating && (
           <p className="type-meta mt-1 flex items-center gap-1">

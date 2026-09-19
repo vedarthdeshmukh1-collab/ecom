@@ -177,6 +177,8 @@ export type HeroSection = {
   subheading: string
   ctaLabel: string
   ctaHref: string
+  ctaSecondaryLabel?: string
+  ctaSecondaryHref?: string
   image: string
   imageAlt: string
   layout?: 'overlay' | 'split'
@@ -216,6 +218,7 @@ export type ImageTextSectionConfig = {
   image: string
   imageAlt: string
   reverse?: boolean
+  headingVariant?: 'h1' | 'h2'
   ctaLabel?: string
   ctaHref?: string
 }
@@ -227,20 +230,51 @@ export type TrustItem = {
 
 export type TrustSectionConfig = {
   type: 'trust'
+  eyebrow?: string
+  heading?: string
   items: TrustItem[]
 }
 
 export type ReviewsSectionConfig = {
   type: 'reviews'
   heading: string
+  showStars?: boolean
 }
 
 export type NewsletterSectionConfig = {
   type: 'newsletter'
+  eyebrow?: string
   heading: string
   body: string
   placeholder: string
   ctaLabel: string
+}
+
+export type RitualStep = {
+  number: string
+  title: string
+  productId: string
+  body: string
+  ctaLabel: string
+  image: string
+  imageAlt: string
+}
+
+export type RitualSectionConfig = {
+  type: 'ritual'
+  heading: string
+  steps: RitualStep[]
+}
+
+export type GridImage = {
+  src: string
+  alt: string
+  size: 'large' | 'tall' | 'wide' | 'default'
+}
+
+export type ImageGridSectionConfig = {
+  type: 'imageGrid'
+  images: GridImage[]
 }
 
 export type HomepageSection =
@@ -252,6 +286,8 @@ export type HomepageSection =
   | TrustSectionConfig
   | ReviewsSectionConfig
   | NewsletterSectionConfig
+  | RitualSectionConfig
+  | ImageGridSectionConfig
 
 export type Review = {
   id: string
