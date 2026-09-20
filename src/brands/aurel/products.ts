@@ -104,8 +104,7 @@ export const aurelProducts: Product[] = [
     price: 86,
     category: 'Treatments',
     images: [
-      { src: '/brands/aurel/product-recovery-oil.webp', alt: 'The Recovery Oil dark glass bottle' },
-      { src: '/brands/aurel/product-recovery-oil-alt.webp', alt: 'The Recovery Oil catching warm light' },
+      { src: '/brands/aurel/product-recovery-oil.webp', alt: 'The Recovery Oil olive glass dropper' },
     ],
     variants: [
       { id: 'night-30', label: '30 ml', sku: 'AUR-NRC-30', inStock: true },
