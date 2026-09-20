@@ -187,8 +187,8 @@ export const aurelBrand: Brand = {
             productId: 'aureole-vitamin-c',
             body: 'A few drops of serum, pressed in. Brightness as a habit, not a performance.',
             ctaLabel: 'Shop serum',
-            image: '/brands/aurel/ritual-treat.webp',
-            imageAlt: 'The Renewal Serum dropper in warm light',
+            image: '/brands/aurel/product-renewal-serum.webp',
+            imageAlt: 'The Renewal Serum amber dropper bottle',
           },
           {
             number: '03',

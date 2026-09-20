@@ -76,7 +76,6 @@ export const aurelProducts: Product[] = [
     category: 'Treatments',
     images: [
       { src: '/brands/aurel/product-renewal-serum.webp', alt: 'The Renewal Serum amber dropper bottle' },
-      { src: '/brands/aurel/product-renewal-serum-alt.webp', alt: 'The Renewal Serum texture on skin' },
     ],
     variants: [
       { id: 'aureole-30', label: '30 ml', sku: 'AUR-AUR-30', inStock: true },
