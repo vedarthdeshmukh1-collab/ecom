@@ -134,8 +134,7 @@ export const aurelProducts: Product[] = [
     price: 64,
     category: 'Moisturize',
     images: [
-      { src: '/brands/aurel/product-barrier-cream.webp', alt: 'The Barrier Cream jar on stone' },
-      { src: '/brands/aurel/product-barrier-cream-alt.webp', alt: 'The Barrier Cream swirl texture' },
+      { src: '/brands/aurel/product-barrier-cream.webp', alt: 'The Barrier Cream frosted jar' },
     ],
     variants: [
       { id: 'cloud-50', label: '50 ml', sku: 'AUR-CBC-50', inStock: true },
