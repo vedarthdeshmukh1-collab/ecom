@@ -12,8 +12,7 @@ export const aurelProducts: Product[] = [
     compareAtPrice: 46,
     category: 'Cleansers',
     images: [
-      { src: '/brands/aurel/product-daily-cleanser.webp', alt: 'The Daily Cleanser bottle on warm linen' },
-      { src: '/brands/aurel/product-daily-cleanser-alt.webp', alt: 'The Daily Cleanser texture on ceramic' },
+      { src: '/brands/aurel/product-daily-cleanser.webp', alt: 'The Daily Cleanser frosted pump bottle' },
     ],
     variants: [
       { id: 'lumen-100', label: '100 ml', sku: 'AUR-LMN-100', inStock: true },

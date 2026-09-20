@@ -178,8 +178,8 @@ export const aurelBrand: Brand = {
             productId: 'lumen-cleansing-milk',
             body: 'Begin with a milky cleanse that lifts the day without asking the skin to tighten.',
             ctaLabel: 'Shop cleanser',
-            image: '/brands/aurel/ritual-cleanse.webp',
-            imageAlt: 'The Daily Cleanser in an editorial bathroom still life',
+            image: '/brands/aurel/product-daily-cleanser.webp',
+            imageAlt: 'The Daily Cleanser frosted pump bottle',
           },
           {
             number: '02',
