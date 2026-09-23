@@ -27,6 +27,7 @@ export function RitualSection({ section }: { section: RitualSectionConfig }) {
                     src={step.image}
                     alt={step.imageAlt}
                     fallbackLabel={brand.logoText}
+                    loading="eager"
                     className="media-hover-zoom h-full w-full object-cover"
                   />
                 </div>

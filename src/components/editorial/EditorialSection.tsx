@@ -25,6 +25,7 @@ export function EditorialSection({ section }: { section: EditorialSectionConfig 
               src={section.image}
               alt={section.imageAlt}
               fallbackLabel={brand.logoText}
+              loading="eager"
               className="h-full w-full object-cover"
             />
           </div>

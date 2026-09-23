@@ -27,6 +27,7 @@ export function ImageGridSection({ section }: { section: ImageGridSectionConfig 
                 src={image.src}
                 alt={image.alt}
                 fallbackLabel={brand.logoText}
+                loading="eager"
                 className="media-hover-zoom h-full w-full object-cover"
               />
             </div>

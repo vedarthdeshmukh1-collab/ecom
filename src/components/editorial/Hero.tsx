@@ -62,7 +62,9 @@ export function Hero({ section }: { section: HeroSection }) {
             src={section.image}
             alt={section.imageAlt}
             fallbackLabel={brand.logoText}
-            className="h-full w-full object-cover object-[center_22%]"
+            loading="eager"
+            position="78% center"
+            className="h-full w-full object-cover"
           />
         </motion.div>
       </motion.div>

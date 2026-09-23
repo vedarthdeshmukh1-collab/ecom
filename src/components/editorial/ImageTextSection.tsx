@@ -18,6 +18,7 @@ export function ImageTextSection({ section }: { section: ImageTextSectionConfig 
               src={section.image}
               alt={section.imageAlt}
               fallbackLabel={brand.logoText}
+              loading="eager"
               className="h-full w-full object-cover"
             />
           </div>

@@ -132,7 +132,7 @@ export const aurelBrand: Brand = {
         ctaSecondaryLabel: 'Discover AUREL',
         ctaSecondaryHref: '/about',
         image: '/brands/aurel/hero.webp',
-        imageAlt: 'Editorial still life of AUREL skincare in warm window light',
+        imageAlt: 'AUREL Daily Cleanser, Recovery Oil, Barrier Cream and Renewal Serum on limestone',
         layout: 'split',
       },
       {
