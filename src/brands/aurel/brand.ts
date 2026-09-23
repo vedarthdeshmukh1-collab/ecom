@@ -229,7 +229,7 @@ export const aurelBrand: Brand = {
         images: [
           {
             src: '/brands/aurel/editorial-01.webp',
-            alt: 'Hands and linen in an AUREL lifestyle frame',
+            alt: 'Olive branch on flax linen and limestone',
             size: 'large',
           },
           {
