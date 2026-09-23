@@ -234,7 +234,7 @@ export const aurelBrand: Brand = {
           },
           {
             src: '/brands/aurel/editorial-02.webp',
-            alt: 'Close study of an AUREL bottle',
+            alt: 'Sunset over hills from a stone terrace',
             size: 'tall',
           },
           {
