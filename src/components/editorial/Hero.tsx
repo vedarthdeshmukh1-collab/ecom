@@ -64,7 +64,7 @@ export function Hero({ section }: { section: HeroSection }) {
             fallbackLabel={brand.logoText}
             loading="eager"
             position="78% center"
-            className="h-full w-full object-cover"
+            className="h-full w-full lg:object-contain xl:object-cover"
           />
         </motion.div>
       </motion.div>

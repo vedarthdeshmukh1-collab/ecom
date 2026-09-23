@@ -163,6 +163,7 @@ export const aurelBrand: Brand = {
         body: 'From texture to absorption, every detail is considered. AUREL formulations bring together carefully selected active ingredients with a sensorial experience designed for everyday use.',
         image: '/brands/aurel/formulation.webp',
         imageAlt: 'AUREL formulations arranged with glassware on limestone',
+        imageFit: 'contain',
         reverse: true,
         headingVariant: 'h2',
         ctaLabel: 'Explore our philosophy',

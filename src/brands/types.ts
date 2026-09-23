@@ -221,6 +221,8 @@ export type ImageTextSectionConfig = {
   headingVariant?: 'h1' | 'h2'
   ctaLabel?: string
   ctaHref?: string
+  /** Defaults to cover. Use contain when a landscape still must stay fully inside a portrait frame. */
+  imageFit?: 'cover' | 'contain'
 }
 
 export type TrustItem = {
