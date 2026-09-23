@@ -239,7 +239,7 @@ export const aurelBrand: Brand = {
           },
           {
             src: '/brands/aurel/editorial-03.webp',
-            alt: 'Texture and surface detail from the cabinet',
+            alt: 'Oil and cream textures on limestone',
             size: 'wide',
           },
           {
