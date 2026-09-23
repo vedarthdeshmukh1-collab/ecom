@@ -244,7 +244,7 @@ export const aurelBrand: Brand = {
           },
           {
             src: '/brands/aurel/editorial-04.webp',
-            alt: 'Atmospheric light across stone and glass',
+            alt: 'Arched plaster opening toward hills at dusk',
             size: 'default',
           },
         ],
